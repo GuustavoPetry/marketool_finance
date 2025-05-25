@@ -30,8 +30,6 @@ O **Marketool** foi criado para **simplificar a gestão de investimentos**, prop
 
 ## 🛠️ Tecnologias Utilizadas
 
-*Insira aqui as tecnologias utilizadas, por exemplo:*
-
 - Flutter
 - Python
 - MySQL
