@@ -20,12 +20,12 @@ class LoginController extends GetxController {
 
       case "":
         isWarning.value = true;
-        erro.value = "email is empty";
+        erro.value = "O campo E-mail não pode ser vazio";
         break;
 
       default:
         isWarning.value = true;
-        erro.value = "email not found";
+        erro.value = "Credenciais Inválidas";
         break;
     }
   }
@@ -38,12 +38,12 @@ class LoginController extends GetxController {
 
       case "":
         isWarning.value = true;
-        erro.value = "password is empty";
+        erro.value = "O campo Senha não pode ser vazio";
         break;
 
       default:
         isWarning.value = true;
-        erro.value = "incorrect password";
+        erro.value = "Credenciais Inválidas";
         break;
     }
   }
@@ -52,22 +52,4 @@ class LoginController extends GetxController {
     Get.to(HomeView());
   }
 
-  String isError(String erro) {
-    switch (erro) {
-      case "email is empty":
-        return "Informe um E-mail";
-
-      case "email not found":
-        return "Dados incorretos";
-
-      case "password is empty":
-        return "Informe uma senha";
-
-      case "incorrect password":
-        return "Dados incorretos";
-
-      default:
-        return "";
-    }
-  }
 }
