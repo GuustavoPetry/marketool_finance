@@ -14,8 +14,8 @@ class LoginButton extends GetView<LoginController> {
         Obx(
           () => controller.isWarning.value
               ? Text(
-                  controller.isError(controller.erro.value),
-                  style: TextStyle(color: Colors.red, fontSize: 20),
+                  controller.erro.value,
+                  style: TextStyle(color: Colors.red, fontSize: 16),
                 )
               : SizedBox.shrink(),
         ),
