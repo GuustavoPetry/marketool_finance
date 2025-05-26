@@ -17,15 +17,51 @@ class HomeView extends StatelessWidget {
             },
             icon: const Icon(
               Icons.home,
-            ) /* aqui é o botão de quando o usuário clica volta pro menu */,
+            ), // aqui é o botão de quando o usuário clica volta pro menu
           ),
         ],
       ),
       body: _body(),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.wallet),
+              tooltip: 'Carteira',
+              iconSize: 40,
+              onPressed: () {
+              },
+            ),
+
+            const SizedBox(width: 32),
+            IconButton(
+              icon: const Icon(Icons.show_chart),
+              tooltip: 'Gráficos',
+              iconSize: 40,
+              onPressed: () {
+              },
+            ),
+
+            const SizedBox(width: 32),
+            IconButton(
+              icon: const Icon(Icons.settings),
+              tooltip: 'Configurações',
+              iconSize: 40,
+              onPressed: () {
+
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
-
-  Widget _body() {
-    return Container();
   }
-}
+
+  Widget _body(){
+    return const Center(
+      child: Text("conteudo principal aqui"),
+    );
+  }
