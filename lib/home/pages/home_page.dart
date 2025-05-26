@@ -16,8 +16,8 @@ class HomeView extends StatelessWidget {
               Get.back();
             },
             icon: const Icon(
-              Icons.home,
-            ), // aqui é o botão de quando o usuário clica volta pro menu
+              Icons.logout,
+            ), // aqui é o botão de quando o usuário clica volta pro login
           ),
         ],
       ),
