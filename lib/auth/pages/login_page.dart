@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:marketool_finance/auth/controllers/login_controller.dart';
 import 'package:marketool_finance/auth/widgets/email_field.dart';
 import 'package:marketool_finance/auth/widgets/login_button.dart';
+import 'package:marketool_finance/auth/widgets/login_warning.dart';
 import 'package:marketool_finance/auth/widgets/password_field.dart';
+import 'package:marketool_finance/auth/widgets/register_button.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -28,7 +30,7 @@ class LoginView extends GetView<LoginController> {
 
   Widget _body(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(12),
       children: [
         const SizedBox(height: 40),
         Center(
@@ -70,8 +72,14 @@ class LoginView extends GetView<LoginController> {
         EmailField(),
         const SizedBox(height: 16),
         PasswordField(),
-        const SizedBox(height: 24),
-        LoginButton(),
+        const SizedBox(height: 30),
+        LoginWarning(),
+        Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [LoginButton(), RegisterButton()],
+          ),
+        ),
       ],
     );
   }
