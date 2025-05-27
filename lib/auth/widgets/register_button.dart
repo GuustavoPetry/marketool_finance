@@ -4,19 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marketool_finance/auth/controllers/login_controller.dart';
 
-class LoginButton extends GetView<LoginController> {
-  const LoginButton({super.key});
+class RegisterButton extends GetView<LoginController> {
+  const RegisterButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: () {
-            controller.tryTologin();
-          },
+          onPressed: () {},
           style: ElevatedButton.styleFrom(backgroundColor: Colors.blue[900]),
-          child: Text("Entrar", style: TextStyle(color: Colors.white)),
+          child: Text("Cadastrar", style: TextStyle(color: Colors.white)),
         ),
       ],
     );
