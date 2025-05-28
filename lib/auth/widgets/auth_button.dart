@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marketool_finance/auth/controllers/login_controller.dart';
+import 'package:marketool_finance/home/pages/home_page.dart';
 
-class LoginButton extends GetView<LoginController> {
-  const LoginButton({super.key});
+class AuthButton extends GetView<LoginController> {
+  String text;
+  bool isAuthButton;
+  AuthButton(this.text, this.isAuthButton, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +16,14 @@ class LoginButton extends GetView<LoginController> {
       children: [
         ElevatedButton(
           onPressed: () {
+            if (isAuthButton) {
             controller.tryTologin();
+            } else {
+              Get.to(HomeView());
+            }
           },
           style: ElevatedButton.styleFrom(backgroundColor: Colors.blue[900]),
-          child: Text("Entrar", style: TextStyle(color: Colors.white)),
+          child: Text(text, style: TextStyle(color: Colors.white)),
         ),
       ],
     );
