@@ -1,14 +1,17 @@
-// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/auth/controllers/login_controller.dart';
-import 'package:marketool_finance/home/pages/home_page.dart';
+import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
+import 'package:marketool_finance/core/routes/app_routes.dart';
 
 class AuthButton extends GetView<LoginController> {
-  String text;
-  bool isAuthButton;
-  AuthButton(this.text, this.isAuthButton, {super.key});
+  final String text;
+  final bool isAuthButton;
+  const AuthButton ({
+    super.key, 
+    required this.isAuthButton,
+    required this.text
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class AuthButton extends GetView<LoginController> {
             if (isAuthButton) {
             controller.tryTologin();
             } else {
-              Get.to(HomeView());
+              Get.toNamed(AppRoutes.login);
             }
           },
           style: ElevatedButton.styleFrom(backgroundColor: Colors.blue[900]),

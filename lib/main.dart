@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/auth/controllers/login_bindings.dart';
-import 'package:marketool_finance/auth/pages/login_page.dart';
+import 'package:marketool_finance/core/routes/app_pages.dart';
+import 'package:marketool_finance/core/routes/app_routes.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  final AppPages appPages = AppPages();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialBinding: LoginBinginds(),
+      initialRoute: AppRoutes.login,
+      getPages: appPages.routes,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const LoginView(),
     );
   }
 }
