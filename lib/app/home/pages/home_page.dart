@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:marketool_finance/app/home/widgets/chart_icon.dart';
-import 'package:marketool_finance/app/home/widgets/logout_button.dart';
-import 'package:marketool_finance/app/home/widgets/settings_icon.dart';
-import 'package:marketool_finance/app/home/widgets/wallet_icon.dart';
+import 'package:marketool_finance/core/widgets/chart_icon.dart';
+import 'package:marketool_finance/core/widgets/logout_button.dart';
+import 'package:marketool_finance/core/widgets/settings_icon.dart';
+import 'package:marketool_finance/core/widgets/wallet_icon.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
