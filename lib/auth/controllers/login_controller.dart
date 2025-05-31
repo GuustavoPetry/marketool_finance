@@ -11,40 +11,26 @@ class LoginController extends GetxController {
   var erro = "".obs;
 
   // aqui é só uma simulação de login, mas aqui faz a parte de conexão com o banco de dados.
-
-  void tryTologin() {
-    switch (emailInput.text) {
-      case email:
-        checkPassword();
-        break;
-
-      case "":
-        isWarning.value = true;
-        erro.value = "O campo E-mail não pode ser vazio";
-        break;
-
-      default:
-        isWarning.value = true;
-        erro.value = "Credenciais Inválidas";
-        break;
+  bool validateFields() {
+    if (emailInput.text.isEmpty) {
+      erro.value = "O campo E-mail não pode ser vazio";
+      return false;
     }
+    if (passwordInput.text.isEmpty) {
+      erro.value = "O campo Senha não pode ser vazio";
+      return false;
+    }
+    if (emailInput.text != email || passwordInput.text != password) {
+      erro.value = "Credencias inválidas";
+      return false;
+    }
+    return true;
   }
 
-  void checkPassword() {
-    switch (passwordInput.text) {
-      case password:
-        login();
-        break;
-
-      case "":
-        isWarning.value = true;
-        erro.value = "O campo Senha não pode ser vazio";
-        break;
-
-      default:
-        isWarning.value = true;
-        erro.value = "Credenciais Inválidas";
-        break;
+  void tryTologin() {
+    isWarning.value = !validateFields();
+    if (!isWarning.value) {
+      login();
     }
   }
 
