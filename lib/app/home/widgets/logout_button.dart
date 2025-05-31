@@ -10,7 +10,7 @@ class LogoutButton extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        Get.offNamed(AppRoutes.login);
+        Get.offAllNamed(AppRoutes.login);
       },
       icon: const Icon(
         Icons.logout,  // Botão de Logout
