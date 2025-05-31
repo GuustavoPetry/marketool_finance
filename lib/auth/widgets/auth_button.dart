@@ -8,7 +8,11 @@ import 'package:marketool_finance/home/pages/home_page.dart';
 class AuthButton extends GetView<LoginController> {
   String text;
   bool isAuthButton;
-  AuthButton(this.text, this.isAuthButton, {super.key});
+  AuthButton ({
+    super.key, 
+    required this.isAuthButton,
+    required this.text
+  });
 
   @override
   Widget build(BuildContext context) {

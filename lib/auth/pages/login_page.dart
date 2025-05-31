@@ -35,25 +35,27 @@ class LoginView extends GetView<LoginController> {
       padding: const EdgeInsets.all(12),
       children: [
         const SizedBox(height: 40),
-        Center(
-          child: LogoImage()
-        ),
+        Center(child: LogoImage()),
 
         const SizedBox(height: 24),
-        Center(
-          child: LogoTitle()
-        ),
+        Center(child: LogoTitle()),
 
         const SizedBox(height: 8),
-        Center(
-          child: LogoSubtitle()
-        ),
+        Center(child: LogoSubtitle()),
 
         const SizedBox(height: 20),
-        InputField("Seu E-mail", false),
+        InputField(
+          isObscure: false,
+          text: "Seu E-mail",
+          inputController: controller.emailInput,
+        ),
 
         const SizedBox(height: 16),
-        InputField("Sua Senha", true),
+        InputField(
+          isObscure: true,
+          text: "Sua senha",
+          inputController: controller.passwordInput,
+        ),
 
         const SizedBox(height: 30),
         LoginWarning(),
@@ -62,8 +64,8 @@ class LoginView extends GetView<LoginController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AuthButton("Entrar", true), 
-              AuthButton("Cadastrar", false)
+              AuthButton(isAuthButton: true, text: "Entrar"),
+              AuthButton(isAuthButton: false, text: "Cadastrar"),
             ],
           ),
         ),

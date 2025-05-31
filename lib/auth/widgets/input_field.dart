@@ -3,15 +3,22 @@ import 'package:get/get.dart';
 import 'package:marketool_finance/auth/controllers/login_controller.dart';
 
 class InputField extends GetView<LoginController> {
-  final String placeHolder;
+  final String text;
   final bool isObscure;
-  const InputField(this.placeHolder, this.isObscure,{super.key});
+  final TextEditingController inputController;
+  const InputField({
+    super.key, 
+    required this.isObscure, 
+    required this.text, 
+    required this.inputController,
+  });
+
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: controller.emailInput,
-      decoration: InputDecoration(labelText: placeHolder),
+      controller: inputController,
+      decoration: InputDecoration(labelText: text),
       obscureText: isObscure,
     );
   }
