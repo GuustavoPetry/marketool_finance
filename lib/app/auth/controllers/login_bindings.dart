@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:marketool_finance/auth/controllers/login_controller.dart';
+import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
 
-class LoginBindings extends Bindings {
+class LoginBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => LoginController());

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/auth/controllers/login_controller.dart';
-import 'package:marketool_finance/auth/widgets/input_field.dart';
-import 'package:marketool_finance/auth/widgets/auth_button.dart';
-import 'package:marketool_finance/auth/widgets/login_warning.dart';
-import 'package:marketool_finance/auth/widgets/logo_design.dart';
+import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
+import 'package:marketool_finance/app/auth/widgets/input_field.dart';
+import 'package:marketool_finance/app/auth/widgets/auth_button.dart';
+import 'package:marketool_finance/app/auth/widgets/login_warning.dart';
+import 'package:marketool_finance/app/auth/widgets/logo_design.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});

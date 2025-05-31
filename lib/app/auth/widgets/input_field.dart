@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/auth/controllers/login_controller.dart';
+import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
 
 class InputField extends GetView<LoginController> {
   final String text;

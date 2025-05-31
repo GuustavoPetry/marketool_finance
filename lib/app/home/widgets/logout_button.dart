@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/auth/controllers/login_controller.dart';
+import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
+import 'package:marketool_finance/core/routes/app_routes.dart';
 
 class LogoutButton extends GetView<LoginController> {
   const LogoutButton({super.key});
@@ -9,10 +10,7 @@ class LogoutButton extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        controller.emailInput.clear();  // Limpa input de E-mail
-        controller.passwordInput.clear();  // Limpa input de senha
-        controller.erro.value = "";  // Limpa erro, se houver
-        Get.back();
+        Get.offNamed(AppRoutes.login);
       },
       icon: const Icon(
         Icons.logout,  // Botão de Logout

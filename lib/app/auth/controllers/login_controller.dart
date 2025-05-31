@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/home/pages/home_page.dart';
+import 'package:marketool_finance/core/routes/app_routes.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailInput = TextEditingController();
@@ -35,7 +35,7 @@ class LoginController extends GetxController {
   }
 
   void login() {
-    Get.to(HomeView());
+    Get.offNamed(AppRoutes.home);
   }
 
 }
