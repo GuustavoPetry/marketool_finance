@@ -15,7 +15,7 @@ class AuthButton extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
         ElevatedButton(
           onPressed: () {
@@ -25,8 +25,11 @@ class AuthButton extends GetView<LoginController> {
               Get.toNamed(AppRoutes.login);
             }
           },
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue[900]),
+          style: Theme.of(context).elevatedButtonTheme.style,
           child: Text(text, style: TextStyle(color: Colors.white)),
+        ),
+        SizedBox(
+          width: 15,
         ),
       ],
     );

@@ -7,19 +7,31 @@ class InputField extends GetView<LoginController> {
   final bool isObscure;
   final TextEditingController inputController;
   const InputField({
-    super.key, 
-    required this.isObscure, 
-    required this.text, 
+    super.key,
+    required this.isObscure,
+    required this.text,
     required this.inputController,
   });
 
-
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: inputController,
-      decoration: InputDecoration(labelText: text),
-      obscureText: isObscure,
+    return SizedBox(
+      width: 150,
+      height: 50,
+      child: TextField(
+        controller: inputController,
+        obscureText: isObscure,
+        style: Theme.of(context).textTheme.bodySmall,
+        decoration: InputDecoration(
+          labelText: text,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          ),
+          labelStyle: Theme.of(context).textTheme.bodySmall,
+        ),
+      ),
     );
   }
 }
