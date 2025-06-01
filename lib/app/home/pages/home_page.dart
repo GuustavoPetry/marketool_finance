@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marketool_finance/app/_core/controllers/theme_controller.dart';
 import 'package:marketool_finance/app/home/controllers/home_controller.dart';
-import 'package:marketool_finance/core/widgets/chart_icon.dart';
-import 'package:marketool_finance/core/widgets/logout_button.dart';
-import 'package:marketool_finance/core/widgets/settings_icon.dart';
-import 'package:marketool_finance/core/widgets/wallet_icon.dart';
+import 'package:marketool_finance/app/_core/widgets/chart_icon.dart';
+import 'package:marketool_finance/app/_core/widgets/logout_button.dart';
+import 'package:marketool_finance/app/_core/widgets/settings_icon.dart';
+import 'package:marketool_finance/app/_core/widgets/wallet_icon.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+  HomeView({super.key});
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +43,13 @@ class HomeView extends GetView<HomeController> {
               ),
               onTap: () {},
             ),
-
+            
             Obx(
               () => SwitchListTile(
-                value: controller.isDarkMode.value,
-                onChanged: (_) => controller.toggleTheme(),
+                value: themeController.isDarkMode.value,
+                onChanged: (_) => themeController.toggleTheme(),
                 title: Text(
-                  controller.isDarkMode.value ? "Tema Claro" : "Tema Escuro",
+                  themeController.isDarkMode.value ? "Tema Claro" : "Tema Escuro",
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 activeColor: Colors.green[400],
