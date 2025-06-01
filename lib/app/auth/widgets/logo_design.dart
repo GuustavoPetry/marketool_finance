@@ -5,6 +5,7 @@ class LogoDesign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       alignment: Alignment.center,
       child: Column(
@@ -13,11 +14,12 @@ class LogoDesign extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.asset(
-              "assets/lightLogo.png",
+              isDark ? "assets/dark_logo.png" : "assets/lightLogo.png",
               width: 300,
               height: 250,
               )
           ),
+
         ],
       ),
     );
