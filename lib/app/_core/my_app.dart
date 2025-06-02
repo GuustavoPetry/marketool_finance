@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 class MyApp extends GetView<ThemeController> {
   MyApp({super.key});
-  final AppPages appPages = AppPages();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class MyApp extends GetView<ThemeController> {
       theme: AppLightTheme.theme,
       darkTheme: AppDarkTheme.theme,
       themeMode: controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
-      getPages: appPages.routes,
+      getPages: AppPages.routes, 
       initialRoute: AppRoutes.login,
       debugShowCheckedModeBanner: false,
     );
