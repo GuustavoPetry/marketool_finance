@@ -3,12 +3,19 @@ import 'package:get/get.dart';
 import 'package:marketool_finance/app/_core/routes/app_routes.dart';
 
 class LoginController extends GetxController {
-  TextEditingController emailInput = TextEditingController();
-  TextEditingController passwordInput = TextEditingController();
+  final emailInput = TextEditingController();
+  final passwordInput = TextEditingController();
   static const String email = "admin";
   static const password = "admin";
   var isWarning = false.obs;
   var erro = "".obs;
+
+  @override
+  void onClose() {
+    emailInput.dispose();
+    passwordInput.dispose();
+    super.onClose();
+  }
 
   // aqui é só uma simulação de login, mas aqui faz a parte de conexão com o banco de dados.
   bool validateFields() {
