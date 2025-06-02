@@ -7,11 +7,9 @@ class RegisterController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
-
   final birthDate = Rxn<DateTime>();
   final birthDateError = RxnString();
   final isLoading = false.obs;
-
   final formKey = GlobalKey<FormState>();
 
   @override
