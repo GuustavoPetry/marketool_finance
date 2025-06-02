@@ -46,6 +46,14 @@ class AppLightTheme {
           fontFamily: "Georgia",
           color: Colors.black87,
         ),
+
+        labelSmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w200,
+          fontFamily: "Georgia",
+          color: Colors.black87,
+        ),
+        
       ),
 
       // Estilo do Elevated Button:

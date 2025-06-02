@@ -46,15 +46,14 @@ class LoginView extends GetView<LoginController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AuthButton(
-                isAuthButton: true,
                 text: "Entrar",
-                // Adicione o onPressed para login se necessário
+                onPressed: controller.tryTologin,
               ),
+
               AuthButton(
-                isAuthButton: false,
                 text: "Cadastrar",
                 onPressed: () {
-                  Get.toNamed(AppRoutes.register);
+                  Get.offAllNamed(AppRoutes.register);
                 },
               ),
             ],
