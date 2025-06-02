@@ -1,11 +1,9 @@
+import 'package:marketool_finance/app/_core/controllers/theme_controller.dart';
+import 'package:marketool_finance/app/_core/widgets/bottom_app_bar.dart';
+import 'package:marketool_finance/app/_core/widgets/top_app_bar.dart';
+import 'package:marketool_finance/app/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/app/_core/controllers/theme_controller.dart';
-import 'package:marketool_finance/app/home/controllers/home_controller.dart';
-import 'package:marketool_finance/app/_core/widgets/chart_icon.dart';
-import 'package:marketool_finance/app/_core/widgets/logout_button.dart';
-import 'package:marketool_finance/app/_core/widgets/settings_icon.dart';
-import 'package:marketool_finance/app/_core/widgets/wallet_icon.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
@@ -14,10 +12,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("MarkeTool Finance"),
-        actions: [LogoutButton()],
-      ),
+      appBar: const TopAppBar(),
 
       drawer: Drawer(
         child: ListView(
@@ -64,21 +59,7 @@ class HomeView extends GetView<HomeController> {
 
       body: _body(),
 
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            WalletIcon(),
-
-            const SizedBox(width: 32),
-            ChartIcon(),
-
-            const SizedBox(width: 32),
-            SettingsIcon(),
-          ],
-        ),
-      ),
+      bottomNavigationBar: CustomBottomAppBar()
     );
   }
 }
