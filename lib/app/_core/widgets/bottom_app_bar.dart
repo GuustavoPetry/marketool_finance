@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:marketool_finance/app/_core/routes/app_routes.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   const CustomBottomAppBar({super.key});
@@ -14,7 +16,9 @@ class CustomBottomAppBar extends StatelessWidget {
             icon: Icon(Icons.wallet),
             tooltip: 'Carteira',
             iconSize: 40,
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(AppRoutes.home);
+            },
           ),
 
           IconButton(
@@ -25,10 +29,12 @@ class CustomBottomAppBar extends StatelessWidget {
           ),
 
           IconButton(
-            icon: const Icon(Icons.settings),
-            tooltip: 'Configurações',
+            icon: const Icon(Icons.file_download),
+            tooltip: 'Importar dados',
             iconSize: 40,
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(AppRoutes.upload);
+            },
           ),
         ],
       ),
