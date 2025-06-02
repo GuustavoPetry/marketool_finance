@@ -8,5 +8,5 @@ class HomeBinding extends Bindings {
   }
 }
 
-/* Esse arquivo serve para ligar o controlador à tela de login, de forma automática e organizada.
-Assim, sempre que você abrir a tela de login, o controlador estará disponível para gerenciar os campos e ações dessa tela. */
+/* Esse arquivo serve para ligar o controlador à Home Page, de forma automática e organizada.
+Assim, sempre que você abrir a Home Page, o controlador estará disponível para gerenciar os campos e ações dessa tela. */

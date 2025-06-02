@@ -5,6 +5,7 @@ import 'package:marketool_finance/app/auth/widgets/input_field.dart';
 import 'package:marketool_finance/app/auth/widgets/auth_button.dart';
 import 'package:marketool_finance/app/auth/widgets/login_warning.dart';
 import 'package:marketool_finance/app/auth/widgets/logo_design.dart';
+import 'package:marketool_finance/app/_core/routes/app_routes.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -44,8 +45,17 @@ class LoginView extends GetView<LoginController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AuthButton(isAuthButton: true, text: "Entrar"),
-              AuthButton(isAuthButton: false, text: "Cadastrar"),
+              AuthButton(
+                text: "Entrar",
+                onPressed: controller.tryTologin,
+              ),
+
+              AuthButton(
+                text: "Cadastrar",
+                onPressed: () {
+                  Get.offAllNamed(AppRoutes.register);
+                },
+              ),
             ],
           ),
         ),
