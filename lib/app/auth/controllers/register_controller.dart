@@ -34,6 +34,13 @@ class RegisterController extends GetxController {
         await Future.delayed(const Duration(seconds: 2));
 
         isLoading.value = false;
+        nameController.clear();
+        emailController.clear();
+        phoneController.clear();
+        birthDate.value = null;
+        birthDateError.value = null;
+        passwordController.clear();
+        confirmPasswordController.clear();
         return true;
       }
 

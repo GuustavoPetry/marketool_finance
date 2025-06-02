@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marketool_finance/app/_core/routes/app_routes.dart';
+import 'package:marketool_finance/app/auth/widgets/date_picker.dart';
 import 'package:marketool_finance/app/auth/widgets/input_form_field.dart';
 import '../controllers/register_controller.dart';
 
@@ -62,43 +63,15 @@ class RegisterPage extends GetView<RegisterController> {
             ),
 
             const SizedBox(height: 16),
-            Obx(
-              () => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      final picked = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime(2000, 1, 1),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now(),
-                      );
-                      if (picked != null) {
-                        controller.birthDate.value = picked;
-                        controller.validateBirthDate();
-                      }
-                    },
-                    child: InputDecorator(
-                      decoration: InputDecoration(
-                        labelText: 'Data de nascimento',
-                        border: const OutlineInputBorder(),
-                        prefixIcon: const Icon(Icons.cake),
-                        labelStyle: Theme.of(context).textTheme.labelSmall,
-                        errorText: controller.birthDateError.value,
-                      ),
-                      child: Text(
-                        controller.birthDate.value == null
-                            ? 'Selecione sua data de nascimento'
-                            : '${controller.birthDate.value!.day.toString().padLeft(2, '0')}/'
-                                  '${controller.birthDate.value!.month.toString().padLeft(2, '0')}/'
-                                  '${controller.birthDate.value!.year}',
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            DatePicker(
+              selectedDate: controller.birthDate,
+              errorText: controller.birthDateError,
+              label: 'Data de nascimento',
+              icon: const Icon(Icons.cake),
+              firstDate: DateTime(1900),
+              lastDate: DateTime.now(),
+              initialDate: DateTime(2000, 1, 1),
+              onChanged: controller.validateBirthDate,
             ),
 
             const SizedBox(height: 16),
@@ -135,12 +108,10 @@ class RegisterPage extends GetView<RegisterController> {
                               'Sucesso',
                               'Cadastro realizado com sucesso!',
                               snackPosition: SnackPosition.BOTTOM,
+                              duration: Duration(seconds: 5),
                             );
-                            controller.nameController.clear();
-                            controller.emailController.clear();
-                            controller.phoneController.clear();
-                            controller.passwordController.clear();
-                            controller.confirmPasswordController.clear();
+                            await Future.delayed(const Duration(seconds: 5));
+                            Get.offAllNamed(AppRoutes.login);
                           }
                         },
                   child: controller.isLoading.value
