@@ -6,6 +6,8 @@ import 'package:marketool_finance/app/home/controllers/home_binding.dart';
 import 'package:marketool_finance/app/home/pages/home_page.dart';
 import 'package:marketool_finance/app/_core/routes/app_routes.dart';
 import 'package:marketool_finance/app/auth/pages/register_page.dart';
+import 'package:marketool_finance/app/upload/controllers/upload_binding.dart';
+import 'package:marketool_finance/app/upload/pages/upload_page.dart';
 
 class AppPages {
   static final routes = [
@@ -24,5 +26,10 @@ class AppPages {
       page: () => RegisterPage(),
       binding: RegisterBinding()
     ),
+    GetPage(
+      name: AppRoutes.upload, 
+      page: () => UploadPage(),
+      binding: UploadBinding()
+      )
   ];
 }
