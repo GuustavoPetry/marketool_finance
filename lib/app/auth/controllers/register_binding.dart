@@ -1,5 +1,5 @@
-import 'package:get/get.dart';
 import 'package:marketool_finance/app/auth/controllers/register_controller.dart';
+import 'package:get/get.dart';
 
 class RegisterBinding extends Bindings {
   @override

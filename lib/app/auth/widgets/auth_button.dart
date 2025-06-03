@@ -1,12 +1,12 @@
+import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
 
-class AuthButton extends GetView<LoginController> {
+class CustomButton extends GetView<LoginController> {
   final String text;
   final VoidCallback? onPressed; 
 
-  const AuthButton({
+  const CustomButton({
     super.key,
     required this.text,
     required this.onPressed, 

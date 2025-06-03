@@ -1,9 +1,9 @@
+import 'package:marketool_finance/app/_core/routes/app_routes.dart';
+import 'package:marketool_finance/app/_core/widgets/date_picker.dart';
+import 'package:marketool_finance/app/_core/widgets/input_form_field.dart';
+import '../controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marketool_finance/app/_core/routes/app_routes.dart';
-import 'package:marketool_finance/app/auth/widgets/date_picker.dart';
-import 'package:marketool_finance/app/auth/widgets/input_form_field.dart';
-import '../controllers/register_controller.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({super.key});

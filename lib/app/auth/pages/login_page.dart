@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:marketool_finance/app/auth/controllers/login_controller.dart';
-import 'package:marketool_finance/app/auth/widgets/input_field.dart';
+import 'package:marketool_finance/app/_core/widgets/input_field.dart';
 import 'package:marketool_finance/app/auth/widgets/auth_button.dart';
 import 'package:marketool_finance/app/auth/widgets/login_warning.dart';
 import 'package:marketool_finance/app/auth/widgets/logo_design.dart';
 import 'package:marketool_finance/app/_core/routes/app_routes.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginView extends GetView<LoginController> {
-  const LoginView({super.key});
+class LoginPage extends GetView<LoginController> {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +45,12 @@ class LoginView extends GetView<LoginController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AuthButton(
+              CustomButton(
                 text: "Entrar",
                 onPressed: controller.tryTologin,
               ),
 
-              AuthButton(
+              CustomButton(
                 text: "Cadastrar",
                 onPressed: () {
                   Get.offAllNamed(AppRoutes.register);
