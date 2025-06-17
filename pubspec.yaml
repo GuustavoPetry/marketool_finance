@@ -18,5 +18,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/RobotoMono-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/RobotoMono-VariableFont_wght.ttf
   assets:
     - assets/images/

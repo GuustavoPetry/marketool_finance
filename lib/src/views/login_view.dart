@@ -43,7 +43,11 @@ class _LoginViewState extends State<LoginView> {
         title: Center(
           child: Text(
             "Login",
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontFamily: "RobotoMono",
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         backgroundColor: const Color(0xFF2E7D32),
@@ -68,8 +72,17 @@ class _LoginViewState extends State<LoginView> {
             inputController: _passwordController,
           ),
 
-          const SizedBox(height: 30),
-          Text(_message, style: TextStyle(color: Colors.red)),
+          const SizedBox(height: 10),
+          Center(
+            child: Text(
+              _message,
+              style: TextStyle(
+                fontFamily: "RobotoMono",
+                fontSize: 16,
+                color: Colors.red,
+              ),
+            ),
+          ),
 
           Center(
             child: Row(
@@ -77,9 +90,15 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 CustomButton(text: "Entrar", onPressed: _handleLogin),
 
-                CustomButton(text: "Cadastrar", onPressed: () {
-                  Navigator.pushReplacementNamed(context, "/register");
-                }),
+
+                SizedBox(width: 10),
+
+                CustomButton(
+                  text: "Cadastrar",
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "/register");
+                  },
+                ),
               ],
             ),
           ),

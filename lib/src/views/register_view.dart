@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/register_controller.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
-import 'package:marketool_financer/src/widgets/custom_date_picker.dart';
 import 'package:marketool_financer/src/widgets/custom_form_field.dart';
 
 class RegisterView extends StatefulWidget {
@@ -47,9 +46,10 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'Cadastro',
-            style: TextStyle(color: Color(0xFFF8F9F7)),
-          ),
+
+          'Cadastro',
+          style: TextStyle(fontFamily: "RobotoMono", color: Color(0xFFF8F9F7)),
+        ),
 
         leading: IconButton(
           onPressed: () {
@@ -59,6 +59,7 @@ class _RegisterViewState extends State<RegisterView> {
         ),
         backgroundColor: const Color(0xFF2E7D32),
       ),
+      backgroundColor: Color(0xFFF8F9F7),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(

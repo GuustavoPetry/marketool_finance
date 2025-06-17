@@ -13,7 +13,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         "👋Olá, ${AuthService.username}",
-        style: TextStyle(color: const Color(0xFFF8F9F7)),
+        style: TextStyle(
+          fontFamily: "RobotoMono",
+          fontWeight: FontWeight.w500,
+          color: const Color(0xFFF8F9F7),
+        ),
       ),
       backgroundColor: const Color(0xFF2E7D32),
       iconTheme: IconThemeData(color: const Color(0xFFF8F9F7)),
