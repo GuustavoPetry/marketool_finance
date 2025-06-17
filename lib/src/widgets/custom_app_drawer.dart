@@ -26,7 +26,10 @@ class CustomAppDrawer extends StatelessWidget {
             ...appMenuItems.map(
               (item) => ListTile(
                 leading: Icon(item.icon),
-                title: Text(item.title),
+                title: Text(
+                  item.title,
+                  style: TextStyle(fontFamily: "RobotoMono"),
+                ),
                 onTap: () {
                   Navigator.pushReplacementNamed(context, item.route);
                 },
@@ -35,7 +38,10 @@ class CustomAppDrawer extends StatelessWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
-              title: Text("Sair", style: TextStyle(color: Colors.red)),
+              title: Text(
+                "Sair",
+                style: TextStyle(fontFamily: "RobotoMono", color: Colors.red),
+              ),
               onTap: () {
                 AuthService.logout();
                 Navigator.pushAndRemoveUntil(

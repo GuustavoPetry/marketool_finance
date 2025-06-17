@@ -22,7 +22,14 @@ class CustomButton extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
           onPressed: onPressed,
-          child: Text(text, style: const TextStyle(color: Colors.white)),
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontFamily: "RobotoMono",
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
         ),
       ],
     );
