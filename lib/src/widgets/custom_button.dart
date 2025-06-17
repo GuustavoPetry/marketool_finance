@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final VoidCallback? onPressed; 
+  final VoidCallback? onPressed;
+  final Widget child;
 
   const CustomButton({
     super.key,
     required this.text,
-    required this.onPressed, 
+    required this.onPressed,
+    this.child = const SizedBox.shrink(),
   });
 
   @override
@@ -21,9 +23,6 @@ class CustomButton extends StatelessWidget {
           ),
           onPressed: onPressed,
           child: Text(text, style: const TextStyle(color: Colors.white)),
-        ),
-        const SizedBox(
-          width: 15,
         ),
       ],
     );
