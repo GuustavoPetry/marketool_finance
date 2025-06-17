@@ -77,7 +77,9 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 CustomButton(text: "Entrar", onPressed: _handleLogin),
 
-                CustomButton(text: "Cadastrar", onPressed: () {}),
+                CustomButton(text: "Cadastrar", onPressed: () {
+                  Navigator.pushReplacementNamed(context, "/register");
+                }),
               ],
             ),
           ),
