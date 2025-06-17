@@ -46,6 +46,7 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
+
           'Cadastro',
           style: TextStyle(fontFamily: "RobotoMono", color: Color(0xFFF8F9F7)),
         ),

@@ -90,6 +90,7 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 CustomButton(text: "Entrar", onPressed: _handleLogin),
 
+
                 SizedBox(width: 10),
 
                 CustomButton(
