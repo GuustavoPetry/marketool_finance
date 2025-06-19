@@ -46,7 +46,6 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-
           'Cadastro',
           style: TextStyle(fontFamily: "RobotoMono", color: Color(0xFFF8F9F7)),
         ),
@@ -141,47 +140,31 @@ class _RegisterViewState extends State<RegisterView> {
 
               const SizedBox(height: 24),
 
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomButton(
-                      text: "Voltar",
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, "/login");
+              SizedBox(width: 20),
+
+              CustomButton(
+                text: "Registrar",
+                onPressed: _controller.isLoading
+                    ? null
+                    : () async {
+                        final success = await _controller.register(
+                          onStateChange: () => setState(() {}),
+                        );
+                        if (success && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Cadastro realizado com sucesso!'),
+                            ),
+                          );
+                        }
                       },
-                    ),
-
-                    SizedBox(width: 20),
-
-                    CustomButton(
-                      text: "Registrar",
-                      onPressed: _controller.isLoading
-                          ? null
-                          : () async {
-                              final success = await _controller.register(
-                                onStateChange: () => setState(() {}),
-                              );
-                              if (success && context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Cadastro realizado com sucesso!',
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                      child: _controller.isLoading
-                          ? const SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : const Text('Registrar'),
-                    ),
-                  ],
-                ),
+                child: _controller.isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Registrar'),
               ),
             ],
           ),

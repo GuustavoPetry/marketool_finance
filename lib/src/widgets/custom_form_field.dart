@@ -20,15 +20,21 @@ class CustomFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: inputController,
-      decoration: InputDecoration(
-        labelText: text,
-        border: OutlineInputBorder(),
-        prefixIcon: icon,
+    return Center(
+      child: Container(
+        alignment: Alignment.center,
+        height: 45,
+        child: TextFormField(
+          controller: inputController,
+          decoration: InputDecoration(
+            labelText: text,
+            border: OutlineInputBorder(),
+            prefixIcon: icon,
+          ),
+          obscureText: isObscure,
+          validator: inputValidator,
+        ),
       ),
-      obscureText: isObscure,
-      validator: inputValidator,
     );
   }
 }

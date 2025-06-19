@@ -14,24 +14,30 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF2E7D32),
-            foregroundColor: Colors.white,
-          ),
-          onPressed: onPressed,
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontFamily: "RobotoMono",
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Center(
+        child: Container(
+          alignment: Alignment.center,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF2E7D32),
+              foregroundColor: Colors.white,
+              minimumSize: const Size(200, 48),
+            ),
+            onPressed: onPressed,
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 20,
+                fontFamily: "RobotoMono",
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
