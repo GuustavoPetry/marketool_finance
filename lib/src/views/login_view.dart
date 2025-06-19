@@ -12,7 +12,8 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
+  final ScrollController _scrollController = ScrollController();
   final _controller = LoginController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -37,13 +38,52 @@ class _LoginViewState extends State<LoginView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    /// Aguarda o próximo frame para ter acesso ao contexto
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final bottomInset = View.of(context).viewInsets.bottom;
+
+      if (bottomInset > 0) {
+        _scrollToBottom();
+      }
+    });
+  }
+
+  void _scrollToBottom() {
+    Future.delayed(Duration(milliseconds: 350), () {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Center(
           child: Text(
-            "Login",
+            "Bem-vindo Investidor",
             style: TextStyle(
+              fontSize: 20,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -54,20 +94,21 @@ class _LoginViewState extends State<LoginView> {
       ),
       backgroundColor: Color(0xFFF8F9F7),
       body: ListView(
-        padding: const EdgeInsets.all(12),
+        controller: _scrollController,
         children: [
           LogoDesignWidget(),
 
-          const SizedBox(height: 20),
           CustomInputField(
             isObscure: false,
-            text: "Seu E-mail",
+            icon: Icon(Icons.person),
+            text: "E-mail ou CPF",
             inputController: _usernameController,
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
           CustomInputField(
             isObscure: true,
+            icon: Icon(Icons.password),
             text: "Sua senha",
             inputController: _passwordController,
           ),
@@ -85,19 +126,22 @@ class _LoginViewState extends State<LoginView> {
           ),
 
           Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomButton(text: "Entrar", onPressed: _handleLogin),
 
+                SizedBox(height: 12),
 
-                SizedBox(width: 10),
-
-                CustomButton(
-                  text: "Cadastrar",
+                TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, "/register");
                   },
+                  child: Text(
+                    "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                    style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ],
             ),

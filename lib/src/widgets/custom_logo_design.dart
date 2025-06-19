@@ -9,14 +9,13 @@ class LogoDesignWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         children: [
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
           ClipRRect(
-            borderRadius: BorderRadius.circular(16),
             child: Image.asset(
               "assets/images/lightLogo.png",
               width: 300,
               height: 250,
-              )
+            ),
           ),
         ],
       ),

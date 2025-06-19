@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/models/menu_model.dart';
-import 'package:marketool_financer/src/views/asset_table_view.dart';
 import 'package:marketool_financer/src/views/home_view.dart';
 import 'package:marketool_financer/src/views/upload_view.dart';
 
@@ -9,7 +8,7 @@ final List<MenuModel> appMenuItems = [
     title: "Home",
     icon: Icons.home,
     route: "/home",
-    page: const AssetTableView(),
+    page: const HomeView(),
   ),
   MenuModel(
     title: "Importar Notas",
