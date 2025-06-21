@@ -14,6 +14,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
   final ScrollController _scrollController = ScrollController();
+  bool _keyboardVisible = false;
   final _controller = LoginController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -56,6 +57,13 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final bottomInset = View.of(context).viewInsets.bottom;
+      final keyboardNowVisible = bottomInset > 0;
+
+      if (_keyboardVisible != keyboardNowVisible) {
+        setState(() {
+          _keyboardVisible = keyboardNowVisible;
+        });
+      }
 
       if (bottomInset > 0) {
         _scrollToBottom();
@@ -128,19 +136,25 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
           Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [CustomButton(text: "Entrar", onPressed: _handleLogin)],
+              children: [
+                CustomButton(text: "Entrar", onPressed: _handleLogin),
+                const SizedBox(height: 10),
+              ],
             ),
           ),
 
-          Center(
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/register");
-              },
-              child: Text(
-                "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
-                style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
-                textAlign: TextAlign.center,
+          Visibility(
+            visible: !_keyboardVisible,
+            child: Center(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/register");
+                },
+                child: Text(
+                  "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                  style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
