@@ -154,15 +154,10 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 CustomButton(
                   onPressed: _handleLogin,
                   text: _loading ? "Validando..." : "Entrar",
                 ),
-                const SizedBox(height: 10),
-              ],
-
-                CustomButton(text: "Entrar", onPressed: _handleLogin),
                 const SizedBox(height: 10),
               ],
             ),
@@ -181,7 +176,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                   textAlign: TextAlign.center,
                 ),
               ),
-
             ),
           ),
 
