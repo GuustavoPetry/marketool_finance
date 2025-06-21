@@ -18,15 +18,23 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
   final _controller = LoginController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  // String _message = "";
+  bool _loading = false;
 
   void _handleLogin() async {
+    setState(() {
+      _loading = true;
+    });
+
     final sucess = await _controller.login(
       _usernameController.text,
       _passwordController.text,
     );
 
     if (!mounted) return;
+
+    setState(() {
+      _loading = false;
+    });
 
     if (sucess) {
       AuthService.login(_usernameController.text);
@@ -146,7 +154,10 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CustomButton(text: "Entrar", onPressed: _handleLogin),
+                CustomButton(
+                  onPressed: _handleLogin,
+                  text: _loading ? "Validando..." : "Entrar",
+                ),
                 const SizedBox(height: 10),
               ],
             ),
