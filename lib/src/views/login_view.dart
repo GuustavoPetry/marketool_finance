@@ -154,12 +154,34 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+
                 CustomButton(
                   onPressed: _handleLogin,
                   text: _loading ? "Validando..." : "Entrar",
                 ),
                 const SizedBox(height: 10),
               ],
+
+                CustomButton(text: "Entrar", onPressed: _handleLogin),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+
+          Visibility(
+            visible: !_keyboardVisible,
+            child: Center(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/register");
+                },
+                child: Text(
+                  "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                  style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+
             ),
           ),
 
