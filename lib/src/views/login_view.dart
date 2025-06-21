@@ -155,7 +155,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomButton(
-                  onPressed: _handleLogin,
+                  onPressed: _loading ? null : _handleLogin,
                   text: _loading ? "Validando..." : "Entrar",
                 ),
                 const SizedBox(height: 10),
