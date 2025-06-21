@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:marketool_financer/src/models/home_table_model.dart';
+import 'package:marketool_financer/src/widgets/custom_home_table.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -6,25 +8,29 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: ListView(
         children: [
-          Text(
-            "Página Inicial",
-            style: TextStyle(fontFamily: "RobotoMono", fontSize: 24, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 30),
-          Text(
-            """Precisamos renderizar uma tabela com informações dos ativos, vindo do banco de dados, como: """,
-            style: TextStyle(fontFamily: "RobotoMono", fontSize: 24),
-            textAlign: TextAlign.left,
-          ),
-          SizedBox(height: 30),
-          Text(
-            "NOME ATIVOS, VARIAÇÃO DIÁRIA (% E R\$), E VARIAÇÃO TOTAL (% E R\$)",
-            style: TextStyle(fontFamily: "RobotoMono", fontSize: 24, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+          CustomHomeTable(
+            assets: [
+              HomeTableModel(
+                ticker: "BBAS3",
+                dailyVariation: 1.8,
+                totalVariation: 9.2,
+              ),
+
+              HomeTableModel(
+                ticker: "PETR4",
+                dailyVariation: -3.69,
+                totalVariation: -6.05,
+              ),
+
+              HomeTableModel(
+                ticker: "BBDC4",
+                dailyVariation: 2.37,
+                totalVariation: 46.18,
+              ),
+            ],
           ),
         ],
       ),
