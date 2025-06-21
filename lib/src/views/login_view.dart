@@ -178,22 +178,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               ),
             ),
           ),
-
-          Visibility(
-            visible: !_keyboardVisible,
-            child: Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/register");
-                },
-                child: Text(
-                  "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
-                  style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
