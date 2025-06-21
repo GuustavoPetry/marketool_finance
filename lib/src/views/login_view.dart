@@ -128,22 +128,20 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
           Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CustomButton(text: "Entrar", onPressed: _handleLogin),
+              children: [CustomButton(text: "Entrar", onPressed: _handleLogin)],
+            ),
+          ),
 
-                SizedBox(height: 12),
-
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/register");
-                  },
-                  child: Text(
-                    "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
-                    style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
+          Center(
+            child: TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/register");
+              },
+              child: Text(
+                "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ],

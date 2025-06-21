@@ -49,13 +49,7 @@ class _RegisterViewState extends State<RegisterView> {
           'Cadastro',
           style: TextStyle(fontFamily: "RobotoMono", color: Color(0xFFF8F9F7)),
         ),
-
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, "/login");
-          },
-          icon: Icon(Icons.arrow_back, color: Color(0xFFF8F9F7)),
-        ),
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: const Color(0xFF2E7D32),
       ),
       backgroundColor: Color(0xFFF8F9F7),
