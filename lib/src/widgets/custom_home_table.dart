@@ -32,7 +32,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
           size: 40,
           color: const Color(0xFF2E7D32),
         ),
-        tilePadding: EdgeInsets.only(left: 15),
+        tilePadding: EdgeInsets.symmetric(horizontal: 15),
         childrenPadding: EdgeInsets.zero,
         initiallyExpanded: true,
         backgroundColor: Colors.grey,
