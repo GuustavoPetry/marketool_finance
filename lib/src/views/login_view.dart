@@ -18,7 +18,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
   final _controller = LoginController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  String _message = "";
+  // String _message = "";
 
   void _handleLogin() async {
     final sucess = await _controller.login(
@@ -32,9 +32,28 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
       AuthService.login(_usernameController.text);
       Navigator.pushReplacementNamed(context, "/home");
     } else {
-      setState(() {
-        _message = "Credenciais Inválidas";
-      });
+      const snackBehavior = SnackBarBehavior.floating;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.redAccent,
+          behavior: snackBehavior,
+          action: SnackBarAction(
+            label: "X",
+            textColor: Colors.white,
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+          content: Text(
+            "Credenciais Inválidas",
+            style: TextStyle(
+              fontSize: 18,
+              fontFamily: "RobotoMono",
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
     }
   }
 
@@ -122,16 +141,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
           ),
 
           const SizedBox(height: 10),
-          Center(
-            child: Text(
-              _message,
-              style: TextStyle(
-                fontFamily: "RobotoMono",
-                fontSize: 16,
-                color: Colors.red,
-              ),
-            ),
-          ),
 
           Center(
             child: Column(
