@@ -7,7 +7,6 @@ class CustomDatePicker extends StatelessWidget {
   final Icon icon;
   final DateTime firstDate;
   final DateTime lastDate;
-  final DateTime initialDate;
   final ValueChanged<DateTime> onChanged;
 
   const CustomDatePicker({
@@ -17,36 +16,44 @@ class CustomDatePicker extends StatelessWidget {
     required this.icon,
     required this.firstDate,
     required this.lastDate,
-    required this.initialDate,
+
     required this.onChanged,
     this.errorText,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        final picked = await showDatePicker(
-          context: context,
-          initialDate: selectedDate,
-          firstDate: firstDate,
-          lastDate: lastDate,
-        );
-        if (picked != null) {
-          onChanged(picked);
-        }
-      },
-      child: InputDecorator(
-        decoration: InputDecoration(
-          labelText: label,
-          border: const OutlineInputBorder(),
-          prefixIcon: icon,
-          errorText: errorText,
-        ),
-        child: Text(
-          '${selectedDate.day.toString().padLeft(2, '0')}/'
-          '${selectedDate.month.toString().padLeft(2, '0')}/'
-          '${selectedDate.year}',
+    return Center(
+      child: SizedBox(
+        width: 250,
+        height: 50,
+        child: TextFormField(
+          readOnly: true,
+          controller: TextEditingController(
+            text:
+                '${selectedDate.day.toString().padLeft(2, '0')}/'
+                '${selectedDate.month.toString().padLeft(2, '0')}/'
+                '${selectedDate.year}',
+          ),
+          decoration: InputDecoration(
+            labelText: label,
+            prefixIcon: icon,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
+          onTap: () async {
+            final picked = await showDatePicker(
+              context: context,
+              initialDate: selectedDate,
+              firstDate: firstDate,
+              lastDate: lastDate,
+            );
+            if (picked != null) {
+              onChanged(picked);
+            }
+          },
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/register_controller.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
+import 'package:marketool_financer/src/widgets/custom_date_picker.dart';
 import 'package:marketool_financer/src/widgets/custom_form_field.dart';
 
 class RegisterView extends StatefulWidget {
@@ -12,6 +13,7 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   late final RegisterController _controller;
+  DateTime _selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -23,22 +25,6 @@ class _RegisterViewState extends State<RegisterView> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  Future<void> _pickBirthDate() async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime(2000),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-
-    if (picked != null) {
-      setState(() {
-        _controller.birthDate = picked;
-        _controller.birthDateError = null;
-      });
-    }
   }
 
   @override
@@ -92,22 +78,17 @@ class _RegisterViewState extends State<RegisterView> {
 
               const SizedBox(height: 12),
 
-              InkWell(
-                onTap: _pickBirthDate,
-                child: InputDecorator(
-                  decoration: InputDecoration(
-                    labelText: 'Data de Nascimento',
-                    border: const OutlineInputBorder(),
-                    errorText: _controller.birthDateError,
-                  ),
-                  child: Text(
-                    _controller.birthDate != null
-                        ? '${_controller.birthDate!.day.toString().padLeft(2, '0')}/'
-                              '${_controller.birthDate!.month.toString().padLeft(2, '0')}/'
-                              '${_controller.birthDate!.year}'
-                        : 'Selecione sua data de nascimento',
-                  ),
-                ),
+              CustomDatePicker(
+                selectedDate: _selectedDate,
+                label: "Data de Nascimento",
+                icon: const Icon(Icons.calendar_today),
+                firstDate: DateTime(1900),
+                lastDate: DateTime.now(),
+                onChanged: (newDate) {
+                  setState(() {
+                    _selectedDate = newDate;
+                  });
+                },
               ),
 
               const SizedBox(height: 12),
@@ -134,31 +115,26 @@ class _RegisterViewState extends State<RegisterView> {
 
               const SizedBox(height: 24),
 
-              SizedBox(width: 20),
-
-              CustomButton(
-                label: "Registrar",
-                onPressed: _controller.isLoading
-                    ? null
-                    : () async {
-                        final success = await _controller.register(
-                          onStateChange: () => setState(() {}),
-                        );
-                        if (success && context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Cadastro realizado com sucesso!'),
-                            ),
+              Center(
+                child: CustomButton(
+                  label: "Registrar",
+                  onPressed: _controller.isLoading
+                      ? null
+                      : () async {
+                          final success = await _controller.register(
+                            onStateChange: () => setState(() {}),
                           );
-                        }
-                      },
-                icon: _controller.isLoading
-                    ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('Registrar'),
+                          if (success && context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Cadastro realizado com sucesso!',
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                ),
               ),
             ],
           ),
