@@ -21,15 +21,18 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        alignment: Alignment.center,
-        height: 45,
+      child: SizedBox(
+        width: 250,
+        height: 50,
         child: TextFormField(
           controller: inputController,
           decoration: InputDecoration(
             labelText: text,
-            border: OutlineInputBorder(),
             prefixIcon: icon,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
           ),
           obscureText: isObscure,
           validator: inputValidator,

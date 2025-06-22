@@ -15,9 +15,10 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(5),
-      child: Container(
-        alignment: Alignment.center,
+      padding: EdgeInsets.all(0),
+      child: SizedBox(
+        width: 230,
+        height: 50,
         child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             textStyle: TextStyle(
@@ -29,7 +30,7 @@ class CustomButton extends StatelessWidget {
             foregroundColor: Colors.white,
             disabledBackgroundColor: const Color(0xFF2E7D32),
             disabledForegroundColor: Colors.white,
-            minimumSize: const Size(200, 48),
+            elevation: 6,
           ),
           label: Text(label),
           onPressed: onPressed,

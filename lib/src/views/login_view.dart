@@ -112,73 +112,127 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            "Bem-vindo Investidor",
-            style: TextStyle(
-              fontSize: 20,
-              fontFamily: "RobotoMono",
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF424242), // cinza mais escuro (grey[800])
+            Color(0xFF616161), // cinza médio (grey[700])
+            Color(0xFFE0E0E0), // cinza claro (grey[200])
+            Color(0xFFF8F9F7), // branco suave
+          ],
+          stops: [
+            0.0, // topo bem escuro
+            0.40, // ainda escuro até 30%
+            0.60, // clareando depois da imagem
+            1.0, // branco no fim
+          ],
         ),
-        backgroundColor: const Color(0xFF2E7D32),
       ),
-      backgroundColor: Color(0xFFF8F9F7),
-      body: ListView(
-        controller: _scrollController,
-        children: [
-          LogoDesignWidget(),
-
-          CustomInputField(
-            isObscure: false,
-            icon: Icon(Icons.person),
-            text: "E-mail ou CPF",
-            inputController: _usernameController,
-          ),
-
-          const SizedBox(height: 10),
-          CustomInputField(
-            isObscure: true,
-            icon: Icon(Icons.password),
-            text: "Sua senha",
-            inputController: _passwordController,
-          ),
-
-          const SizedBox(height: 10),
-
-          Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CustomButton(
-                  onPressed: _loading ? null : _handleLogin,
-                  label: _loading ? "Validando..." : "Entrar",
-                ),
-                const SizedBox(height: 10),
-              ],
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Color(0xFF2E7D32),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
             ),
-          ),
-
-          Visibility(
-            visible: !_keyboardVisible,
-            child: Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/register");
-                },
+            child: SafeArea(
+              child: Center(
                 child: Text(
-                  "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
-                  style: TextStyle(fontSize: 12, fontFamily: "RobotoMono"),
-                  textAlign: TextAlign.center,
+                  "Bem-vindo Investidor",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: "RobotoMono",
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-        ],
+        ),
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            ListView(
+              controller: _scrollController,
+              children: [
+                LogoDesignWidget(),
+
+                CustomInputField(
+                  isObscure: false,
+                  icon: Icon(Icons.person),
+                  text: "E-mail ou CPF",
+                  inputController: _usernameController,
+                ),
+
+                const SizedBox(height: 10),
+                CustomInputField(
+                  isObscure: true,
+                  icon: Icon(Icons.password),
+                  text: "Sua senha",
+                  inputController: _passwordController,
+                ),
+
+                const SizedBox(height: 10),
+
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomButton(
+                        onPressed: _loading ? null : _handleLogin,
+                        label: _loading ? "Validando..." : "Entrar",
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            Visibility(
+              visible: !_keyboardVisible,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: Container(
+                    width: double.infinity,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF2E7D32),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(35),
+                        topRight: Radius.circular(35),
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/register");
+                      },
+                      child: Text(
+                        "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: "RobotoMono",
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
