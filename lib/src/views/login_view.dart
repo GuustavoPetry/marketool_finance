@@ -191,6 +191,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                         label: _loading ? "Validando..." : "Entrar",
                       ),
                       const SizedBox(height: 10),
+
                       TextButton(
                         onPressed: () {},
                         child: Text(
