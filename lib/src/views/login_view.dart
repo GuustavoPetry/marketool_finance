@@ -156,7 +156,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               children: [
                 CustomButton(
                   onPressed: _loading ? null : _handleLogin,
-                  text: _loading ? "Validando..." : "Entrar",
+                  label: _loading ? "Validando..." : "Entrar",
                 ),
                 const SizedBox(height: 10),
               ],

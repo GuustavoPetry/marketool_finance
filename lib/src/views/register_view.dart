@@ -137,7 +137,7 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(width: 20),
 
               CustomButton(
-                text: "Registrar",
+                label: "Registrar",
                 onPressed: _controller.isLoading
                     ? null
                     : () async {
@@ -152,7 +152,7 @@ class _RegisterViewState extends State<RegisterView> {
                           );
                         }
                       },
-                child: _controller.isLoading
+                icon: _controller.isLoading
                     ? const SizedBox(
                         width: 24,
                         height: 24,

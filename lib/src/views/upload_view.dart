@@ -1,5 +1,6 @@
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:marketool_financer/src/widgets/custom_button.dart';
 
 class UploadView extends StatefulWidget {
   const UploadView({super.key});
@@ -10,6 +11,7 @@ class UploadView extends StatefulWidget {
 
 class _UploadViewState extends State<UploadView> {
   bool _loading = false;
+  int selectedFiles = 0;
 
   Future<void> _handlePdfSelection() async {
     setState(() {
@@ -76,7 +78,7 @@ class _UploadViewState extends State<UploadView> {
             TextButton(
               onPressed: _handlePdfSelection,
               child: Text(
-                "Importar Arquivos",
+                ">>Importar Arquivos<<",
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: "RobotoMono",
@@ -86,8 +88,22 @@ class _UploadViewState extends State<UploadView> {
                 ),
               ),
             ),
-            const SizedBox(height: 30),
-            ElevatedButton.icon(
+
+            Text(
+              selectedFiles > 0
+                  ? "$selectedFiles arquivos selecionados"
+                  : "Nenhum arquivo selecionado",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: "RobotoMono",
+                fontWeight: FontWeight.w400,
+                color: Colors.lightGreen,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+            CustomButton(
               icon: _loading
                   ? const SizedBox(
                       height: 20,
@@ -98,19 +114,8 @@ class _UploadViewState extends State<UploadView> {
                       ),
                     )
                   : const Icon(Icons.send),
-              label: Text(_loading ? "Carregando..." : "Enviar Notas"),
+              label: _loading ? "Carregando" : "Enviar Notas",
               onPressed: _loading ? null : _handlePdfSelection,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2E7D32),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 15,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
             ),
           ],
         ),
