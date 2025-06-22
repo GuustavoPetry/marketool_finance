@@ -191,6 +191,18 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                         label: _loading ? "Validando..." : "Entrar",
                       ),
                       const SizedBox(height: 10),
+
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Esqueceu sua Senha?",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: "RobotoMono",
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
