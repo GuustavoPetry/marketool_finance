@@ -19,9 +19,12 @@ class CustomPieChart extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 4,
-        color: Colors.grey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: Colors.green, width: 1),
+        ),
+        elevation: 3,
+        color: Color(0xFFEAF4EC),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: PieChart(
