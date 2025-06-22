@@ -31,7 +31,7 @@ class CustomInputField extends StatelessWidget {
               fontSize: 16,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
-              color: Colors.grey[700],
+              color: Color(0xFF2E7D32),
             ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
             enabledBorder: OutlineInputBorder(
