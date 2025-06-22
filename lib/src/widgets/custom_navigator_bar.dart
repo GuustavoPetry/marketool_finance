@@ -25,7 +25,9 @@ class CustomNavigatorBar extends StatelessWidget {
               icon: const Icon(Icons.show_chart, color: Color(0xFFF8F9F7)),
               tooltip: 'Gráficos',
               iconSize: 40,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, "/patrimony");
+              },
             ),
 
             IconButton(
