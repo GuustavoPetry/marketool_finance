@@ -12,38 +12,41 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  late final RegisterController _controller;
+  late final RegisterController _controller = RegisterController();
+  final PageController _pageController = PageController();
   DateTime _selectedDate = DateTime.now();
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = RegisterController();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+  int currentPage = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFE0E0E0),
       appBar: AppBar(
-        title: const Text(
-          'Cadastro',
+        title: Text(
+          'Cadastro - $currentPage/3',
           style: TextStyle(fontFamily: "RobotoMono", color: Color(0xFFF8F9F7)),
         ),
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: const Color(0xFF2E7D32),
       ),
-      backgroundColor: Color(0xFFF8F9F7),
-      body: Padding(
+      bottomNavigationBar: Container(
+        color: const Color(0xFF2E7D32),
+        width: double.infinity,
+        height: 100,
+      ),
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+        children: [_registerStep_01(), _registerStep_02(), _registerStep_03()],
+      ),
+    );
+  }
+
+  Widget _registerStep_01() {
+    return Center(
+      child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _controller.formKey,
-          child: ListView(
+        child: SingleChildScrollView(
+          child: Column(
             children: [
               CustomFormField(
                 text: "Nome Completo",
@@ -53,35 +56,11 @@ class _RegisterViewState extends State<RegisterView> {
                 inputController: _controller.nameController,
                 inputValidator: _controller.validateName,
               ),
-
-              const SizedBox(height: 12),
-
-              CustomFormField(
-                text: "E-mail",
-                icon: Icon(Icons.email),
-                type: TextInputType.emailAddress,
-                isObscure: false,
-                inputController: _controller.emailController,
-                inputValidator: _controller.validateEmail,
-              ),
-
-              const SizedBox(height: 12),
-
-              CustomFormField(
-                text: "Nº Celular",
-                icon: Icon(Icons.phone),
-                type: TextInputType.phone,
-                isObscure: false,
-                inputController: _controller.phoneController,
-                inputValidator: _controller.validatePhone,
-              ),
-
-              const SizedBox(height: 12),
-
+              SizedBox(height: 20),
               CustomDatePicker(
                 selectedDate: _selectedDate,
                 label: "Data de Nascimento",
-                icon: const Icon(Icons.calendar_today),
+                icon: Icon(Icons.calendar_today),
                 firstDate: DateTime(1900),
                 lastDate: DateTime.now(),
                 onChanged: (newDate) {
@@ -90,20 +69,99 @@ class _RegisterViewState extends State<RegisterView> {
                   });
                 },
               ),
+              SizedBox(height: 40),
+              CustomButton(
+                label: "Próximo",
+                onPressed: () {
+                  setState(() {
+                    ++currentPage;
+                  });
+                  _pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-              const SizedBox(height: 12),
-
+  Widget _registerStep_02() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
               CustomFormField(
-                text: "Senha",
+                text: "E-mail",
+                icon: Icon(Icons.email),
+                type: TextInputType.emailAddress,
+                isObscure: false,
+                inputController: _controller.emailController,
+                inputValidator: _controller.validateEmail,
+              ),
+              SizedBox(height: 20),
+              CustomFormField(
+                text: "Nº Celular",
+                icon: Icon(Icons.phone),
+                type: TextInputType.phone,
+                isObscure: false,
+                inputController: _controller.phoneController,
+                inputValidator: _controller.validatePhone,
+              ),
+              SizedBox(height: 40),
+              CustomButton(
+                label: "Próximo",
+                onPressed: () {
+                  setState(() {
+                    ++currentPage;
+                  });
+                  _pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                },
+              ),
+              SizedBox(height: 15),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    --currentPage;
+                  });
+                  _pageController.previousPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Text("Voltar"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _registerStep_03() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              CustomFormField(
+                text: "Escolha uma Senha",
                 icon: Icon(Icons.password),
                 type: TextInputType.text,
                 isObscure: true,
                 inputController: _controller.passwordController,
                 inputValidator: _controller.validatePassword,
               ),
-
-              const SizedBox(height: 12),
-
+              SizedBox(height: 20),
               CustomFormField(
                 text: "Confirme a Senha",
                 icon: Icon(Icons.password),
@@ -112,29 +170,25 @@ class _RegisterViewState extends State<RegisterView> {
                 inputController: _controller.passwordController,
                 inputValidator: _controller.validateConfirmPassword,
               ),
-
-              const SizedBox(height: 24),
-
-              Center(
-                child: CustomButton(
-                  label: "Registrar",
-                  onPressed: _controller.isLoading
-                      ? null
-                      : () async {
-                          final success = await _controller.register(
-                            onStateChange: () => setState(() {}),
-                          );
-                          if (success && context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Cadastro realizado com sucesso!',
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                ),
+              SizedBox(height: 40),
+              CustomButton(
+                label: "Finalizar",
+                onPressed: () {
+                  /// Será implementado a inserção dos cadastro no banco de dados
+                },
+              ),
+              SizedBox(height: 15),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    --currentPage;
+                  });
+                  _pageController.previousPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Text("Voltar"),
               ),
             ],
           ),
