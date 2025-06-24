@@ -1,5 +1,5 @@
 class AuthService {
-  static bool isLoggedIn = false;
+  static bool isLoggedIn = true;
   static String? username = "";
 
   static void login(String user) {

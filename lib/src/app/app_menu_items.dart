@@ -26,7 +26,7 @@ final List<MenuModel> appMenuItems = [
   ),
   MenuModel(
     title: "Central de Ajuda",
-    icon: Icons.help_center,
+    icon: Icons.help,
     route: "/help",
     page: const HelpCenterView(),
   ),
