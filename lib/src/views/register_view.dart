@@ -44,7 +44,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _registerStep_01() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 80),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -82,6 +82,7 @@ class _RegisterViewState extends State<RegisterView> {
                   );
                 },
               ),
+              SizedBox(height: 50),
             ],
           ),
         ),
@@ -92,7 +93,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _registerStep_02() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 80),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -137,7 +138,7 @@ class _RegisterViewState extends State<RegisterView> {
                     curve: Curves.easeInOut,
                   );
                 },
-                child: Text("Voltar"),
+                child: Text("Voltar", style: TextStyle(fontSize: 20)),
               ),
             ],
           ),
@@ -149,7 +150,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _registerStep_03() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 80),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -188,7 +189,7 @@ class _RegisterViewState extends State<RegisterView> {
                     curve: Curves.easeInOut,
                   );
                 },
-                child: Text("Voltar"),
+                child: Text("Voltar", style: TextStyle(fontSize: 20)),
               ),
             ],
           ),
