@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:marketool_financer/src/app/app_menu_items.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
 import 'package:marketool_financer/src/views/login_view.dart';
 import 'package:marketool_financer/src/widgets/custom_user_card.dart';
@@ -67,17 +66,26 @@ class CustomAppDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            ...appMenuItems.map(
-              (item) => ListTile(
-                leading: Icon(item.icon),
-                title: Text(
-                  item.title,
-                  style: TextStyle(fontFamily: "RobotoMono"),
-                ),
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, item.route);
-                },
-              ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Home", style: TextStyle(fontSize: 20)),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, "/home");
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.money),
+              title: Text("Meu Patrimônio", style: TextStyle(fontSize: 20)),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, "/patrimony");
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.file_upload),
+              title: Text("Importar Notas", style: TextStyle(fontSize: 20)),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, "/upload");
+              },
             ),
             const Divider(),
             ListTile(

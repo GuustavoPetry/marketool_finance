@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:marketool_financer/src/widgets/custom_app_bar.dart';
+import 'package:marketool_financer/src/widgets/custom_app_drawer.dart';
+import 'package:marketool_financer/src/widgets/custom_navigator_bar.dart';
 
 class HelpCenterView extends StatelessWidget {
   const HelpCenterView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container (
+    return Scaffold(
+      appBar: CustomAppBar(),
+      drawer: CustomAppDrawer(),
+      bottomNavigationBar: CustomNavigatorBar(),
+      body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFFE8F5E9),
-              Color(0xFFC8E6C9),
-            ],
+            colors: [Color(0xFFE8F5E9), Color(0xFFC8E6C9)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -21,7 +25,8 @@ class HelpCenterView extends StatelessWidget {
           children: [
             _buildHelpCard(
               title: "Como usar o app?",
-              description: "Aprenda a navegar, investir e acompanhar sua carteira.",
+              description:
+                  "Aprenda a navegar, investir e acompanhar sua carteira.",
               icon: Icons.help_outline,
             ),
             _buildHelpCard(
@@ -41,7 +46,8 @@ class HelpCenterView extends StatelessWidget {
             ),
           ],
         ),
-      );
+      ),
+    );
   }
 
   Widget _buildHelpCard({
@@ -67,8 +73,7 @@ class HelpCenterView extends StatelessWidget {
           description,
           style: const TextStyle(fontFamily: 'RobotoMono'),
         ),
-        onTap: () {
-        },
+        onTap: () {},
       ),
     );
   }
