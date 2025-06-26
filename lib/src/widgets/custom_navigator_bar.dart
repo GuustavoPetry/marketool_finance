@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomNavigatorBar extends StatelessWidget {
-  const CustomNavigatorBar({super.key});
+  CustomNavigatorBar({super.key});
+
+  final GlobalKey homePageKey = GlobalKey();
+  final GlobalKey patrimonyKey = GlobalKey();
+  final GlobalKey uploadKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +17,7 @@ class CustomNavigatorBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
+              key: homePageKey,
               icon: Icon(Icons.home, color: const Color(0xFFF8F9F7)),
               tooltip: 'Home',
               iconSize: 40,
@@ -22,6 +27,7 @@ class CustomNavigatorBar extends StatelessWidget {
             ),
 
             IconButton(
+              key: patrimonyKey,
               icon: const Icon(Icons.show_chart, color: Color(0xFFF8F9F7)),
               tooltip: 'Gráficos',
               iconSize: 40,
@@ -31,6 +37,7 @@ class CustomNavigatorBar extends StatelessWidget {
             ),
 
             IconButton(
+              key: uploadKey,
               icon: const Icon(Icons.file_download, color: Color(0xFFF8F9F7)),
               tooltip: 'Importar Notas',
               iconSize: 40,

@@ -1,10 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:marketool_financer/src/controllers/tutorial_controller.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
 import 'package:marketool_financer/src/views/login_view.dart';
 import 'package:marketool_financer/src/widgets/custom_user_card.dart';
 
 class CustomAppDrawer extends StatelessWidget {
-  const CustomAppDrawer({super.key});
+  CustomAppDrawer({super.key});
+
+  final GlobalKey homePageKey = GlobalKey();
+  final GlobalKey patrimonyKey = GlobalKey();
+  final GlobalKey uploadKey = GlobalKey();
+
+  void _showTutorialDialog(BuildContext safeContext) {
+    showDialog(
+      context: safeContext,
+      builder: (dialogContext) => AlertDialog(
+        title: Text("Iniciar Tutorial"),
+        content: Text("Deseja iniciar o tutorial guiado pela aplicação?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text("Cancelar", style: TextStyle(color: Colors.red)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+
+              Future.delayed(Duration(milliseconds: 300), () {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  TutorialController(
+                    context: safeContext,
+                    uploadKey: uploadKey,
+                    patrimonyKey: patrimonyKey,
+                    homePageKey: homePageKey,
+                  ).startTutorial();
+                });
+              });
+            },
+            child: Text("INICIAR", style: TextStyle(color: Colors.blue)),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +123,23 @@ class CustomAppDrawer extends StatelessWidget {
               title: Text("Importar Notas", style: TextStyle(fontSize: 20)),
               onTap: () {
                 Navigator.pushReplacementNamed(context, "/upload");
+              },
+            ),
+            Builder(
+              builder: (BuildContext safeContext) {
+                return ListTile(
+                  leading: Icon(Icons.play_circle_fill),
+                  title: Text("Tutorial"),
+                  onTap: () {
+                    Navigator.pop(safeContext); // Fecha o drawer
+
+                    Future.delayed(Duration(milliseconds: 300), () {
+                      _showTutorialDialog(
+                        safeContext,
+                      ); // Usa o contexto acima do Drawer
+                    });
+                  },
+                );
               },
             ),
             const Divider(),
