@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  tutorial_coach_mark: ^1.2.2
   file_selector: ^1.0.3
   fl_chart: ^0.66.0
 
