@@ -158,7 +158,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                         onPressed: _loading ? null : _handleLogin,
                         label: _loading ? "Validando..." : "Entrar",
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
                       TextButton(
                         onPressed: () {},
                         child: Text(
@@ -180,31 +180,28 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               visible: !_keyboardVisible,
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 24),
-                  child: Container(
-                    width: double.infinity,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF2E7D32),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(35),
-                        topRight: Radius.circular(35),
-                      ),
+                child: Container(
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF2E7D32),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35),
                     ),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/register");
-                      },
-                      child: Text(
-                        "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "RobotoMono",
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/register");
+                    },
+                    child: Text(
+                      "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: "RobotoMono",
+                        color: Colors.white,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
