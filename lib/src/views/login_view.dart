@@ -149,7 +149,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                   text: "Sua senha",
                   inputController: _passwordController,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,7 +158,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                         onPressed: _loading ? null : _handleLogin,
                         label: _loading ? "Validando..." : "Entrar",
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 30),
                       TextButton(
                         onPressed: () {},
                         child: Text(
