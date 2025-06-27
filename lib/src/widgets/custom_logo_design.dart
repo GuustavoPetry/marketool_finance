@@ -9,22 +9,22 @@ class LogoDesignWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         children: [
-          ClipRRect(
-            child: Image.asset(
-              "assets/images/appLogo.png",
-              width: 320,
-              height: 200,
+          Center(
+            child: ClipRRect(
+              child: Image.asset(
+                "assets/images/appLogo.png",
+                width: 320,
+                height: 200,
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
+          Center(
             child: ClipRRect(
               child: Image.asset(
                 "assets/images/subLogo.png",
-                width: 320,
+                width: 310,
                 height: 25,
               ),
-
             ),
           ),
         ],
