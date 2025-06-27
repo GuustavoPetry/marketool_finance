@@ -123,12 +123,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
             Color(0xFF2E5C4B),
             Color(0xFF38755E),
           ],
-          stops: [
-            0.0, // topo bem escuro
-            0.25, // cor intermediária
-            0.50, // clareando
-            1.0, // final claro suave
-          ],
+          stops: [0.0, 0.25, 0.50, 1.0],
         ),
       ),
       child: Scaffold(
@@ -138,17 +133,15 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
             ListView(
               controller: _scrollController,
               children: [
+                SizedBox(height: 30),
                 LogoDesignWidget(),
-
                 SizedBox(height: 25),
-
                 CustomInputField(
                   isObscure: false,
                   icon: Icon(Icons.person),
                   text: "E-mail ou CPF",
                   inputController: _usernameController,
                 ),
-
                 const SizedBox(height: 10),
                 CustomInputField(
                   isObscure: true,
@@ -156,9 +149,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                   text: "Sua senha",
                   inputController: _passwordController,
                 ),
-
                 const SizedBox(height: 10),
-
                 Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -168,7 +159,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                         label: _loading ? "Validando..." : "Entrar",
                       ),
                       const SizedBox(height: 10),
-
                       TextButton(
                         onPressed: () {},
                         child: Text(
@@ -186,7 +176,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                 ),
               ],
             ),
-
             Visibility(
               visible: !_keyboardVisible,
               child: Align(
