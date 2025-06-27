@@ -24,6 +24,7 @@ class LogoDesignWidget extends StatelessWidget {
                 width: 320,
                 height: 25,
               ),
+
             ),
           ),
         ],
