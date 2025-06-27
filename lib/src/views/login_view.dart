@@ -180,7 +180,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               visible: !_keyboardVisible,
               child: Align(
                 alignment: Alignment.bottomCenter,
-
                 child: Container(
                   width: double.infinity,
                   height: 80,
