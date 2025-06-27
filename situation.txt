@@ -1,0 +1,7 @@
+FEITO:
+    1. Instalei o Provider no projeto para conseguir acessar as mesma instâncias das GlobalKeys em toda a aplicação.
+
+
+A FAZER:
+    2. Implementar o TutorialCoachMark utilizando as GlobalKeys
+
