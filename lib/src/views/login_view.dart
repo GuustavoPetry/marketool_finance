@@ -118,45 +118,20 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF424242), // cinza mais escuro (grey[800])
-            Color(0xFF616161), // cinza médio (grey[700])
-            Color(0xFFE0E0E0), // cinza claro (grey[200])
-            Color(0xFFF8F9F7), // branco suave
+            Color(0xFF0D1F1A),
+            Color(0xFF1F3C34),
+            Color(0xFF2E5C4B),
+            Color(0xFF38755E),
           ],
           stops: [
             0.0, // topo bem escuro
-            0.40, // ainda escuro até 30%
-            0.60, // clareando depois da imagem
-            1.0, // branco no fim
+            0.25, // cor intermediária
+            0.50, // clareando
+            1.0, // final claro suave
           ],
         ),
       ),
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFF2E7D32),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
-            ),
-            child: SafeArea(
-              child: Center(
-                child: Text(
-                  "Bem-vindo Investidor",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: "RobotoMono",
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
@@ -164,6 +139,8 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               controller: _scrollController,
               children: [
                 LogoDesignWidget(),
+
+                SizedBox(height: 25),
 
                 CustomInputField(
                   isObscure: false,
@@ -200,6 +177,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                             fontSize: 16,
                             fontFamily: "RobotoMono",
                             fontWeight: FontWeight.w500,
+                            color: Colors.white,
                           ),
                         ),
                       ),
