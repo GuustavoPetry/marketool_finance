@@ -18,25 +18,47 @@ class _RegisterViewState extends State<RegisterView> {
   int currentPage = 1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFE0E0E0),
-      appBar: AppBar(
-        title: Text(
-          'Cadastro - $currentPage/3',
-          style: TextStyle(fontFamily: "RobotoMono", color: Color(0xFFF8F9F7)),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF0D1F1A),
+            Color(0xFF1F3C34),
+            Color(0xFF2E5C4B),
+            Color(0xFF38755E),
+          ],
+          stops: [0.0, 0.25, 0.50, 1.0],
         ),
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFF2E7D32),
       ),
-      bottomNavigationBar: Container(
-        color: const Color(0xFF2E7D32),
-        width: double.infinity,
-        height: 100,
-      ),
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: [_registerStep_01(), _registerStep_02(), _registerStep_03()],
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(
+            'Cadastro - $currentPage/3',
+            style: TextStyle(
+              fontFamily: "RobotoMono",
+              color: Color(0xFFF8F9F7),
+            ),
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: const Color(0xFF2E7D32),
+        ),
+        bottomNavigationBar: Container(
+          color: const Color(0xFF2E7D32),
+          width: double.infinity,
+          height: 100,
+        ),
+        body: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            _registerStep_01(),
+            _registerStep_02(),
+            _registerStep_03(),
+          ],
+        ),
       ),
     );
   }
@@ -92,7 +114,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _registerStep_02() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 65),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -137,7 +159,10 @@ class _RegisterViewState extends State<RegisterView> {
                     curve: Curves.easeInOut,
                   );
                 },
-                child: Text("Voltar"),
+                child: Text(
+                  "Voltar",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
               ),
             ],
           ),
@@ -149,7 +174,7 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _registerStep_03() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 65),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -188,7 +213,10 @@ class _RegisterViewState extends State<RegisterView> {
                     curve: Curves.easeInOut,
                   );
                 },
-                child: Text("Voltar"),
+                child: Text(
+                  "Voltar",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
               ),
             ],
           ),

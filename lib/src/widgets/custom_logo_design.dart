@@ -16,11 +16,15 @@ class LogoDesignWidget extends StatelessWidget {
               height: 200,
             ),
           ),
-          ClipRRect(
-            child: Image.asset(
-              "assets/images/subLogo.png",
-              width: 320,
-              height: 25,
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: ClipRRect(
+              child: Image.asset(
+                "assets/images/subLogo.png",
+                width: 320,
+                height: 25,
+              ),
+
             ),
           ),
         ],

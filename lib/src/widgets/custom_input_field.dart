@@ -18,7 +18,7 @@ class CustomInputField extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: SizedBox(
-        width: 230,
+        width: 280,
         height: 50,
         child: TextField(
           controller: inputController,

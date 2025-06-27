@@ -22,7 +22,7 @@ class CustomDatePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 230,
+        width: 280,
         height: 50,
         child: TextFormField(
           readOnly: true,
