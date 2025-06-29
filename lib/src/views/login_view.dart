@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/login_controller.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
-import 'package:marketool_financer/src/widgets/custom_button.dart';
 import 'package:marketool_financer/src/widgets/custom_text_field.dart';
 import 'package:marketool_financer/src/widgets/custom_logo_design.dart';
 
@@ -25,7 +24,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
       _loading = true;
     });
 
-    final sucess = await _controller.login(
+    final success = await _controller.login(
       _usernameController.text,
       _passwordController.text,
     );
@@ -36,7 +35,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
       _loading = false;
     });
 
-    if (sucess) {
+    if (success) {
       AuthService.login(_usernameController.text);
       Navigator.pushReplacementNamed(context, "/home");
     } else {
@@ -52,7 +51,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
             },
           ),
-          content: Text(
+          content: const Text(
             "Credenciais Inválidas",
             style: TextStyle(
               fontSize: 18,
@@ -75,12 +74,13 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   @override
   void didChangeMetrics() {
-    /// Aguarda o próximo frame para ter acesso ao contexto
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final bottomInset = View.of(context).viewInsets.bottom;
@@ -99,11 +99,11 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
   }
 
   void _scrollToBottom() {
-    Future.delayed(Duration(milliseconds: 350), () {
+    Future.delayed(const Duration(milliseconds: 350), () {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );
       }
@@ -132,80 +132,99 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
           children: [
             ListView(
               controller: _scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               children: [
-                SizedBox(height: 50),
-                LogoDesignWidget(),
-                SizedBox(height: 25),
+                const SizedBox(height: 50),
+                const LogoDesignWidget(),
+                const SizedBox(height: 25),
                 CustomTextField(
                   isObscure: false,
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   text: "E-mail ou CPF",
                   inputController: _usernameController,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   isObscure: true,
-                  icon: Icon(Icons.password),
+                  icon: const Icon(Icons.password),
                   text: "Sua senha",
                   inputController: _passwordController,
                 ),
                 const SizedBox(height: 20),
-                Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomButton(
-                        onPressed: _loading ? null : _handleLogin,
-                        label: _loading ? "Validando..." : "Entrar",
-                      ),
-                      const SizedBox(height: 20),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Esqueceu sua Senha?",
+
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/register");
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF2E7D32),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          shadowColor: Colors.black.withOpacity(0.3),
+                          elevation: 6,
+                        ),
+                        child: const Text(
+                          "Cadastrar",
                           style: TextStyle(
-                            fontSize: 16,
                             fontFamily: "RobotoMono",
-                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
                             color: Colors.white,
                           ),
                         ),
                       ),
-                    ],
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: _loading ? null : _handleLogin,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF2E7D32),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          shadowColor: Colors.black.withOpacity(0.3),
+                          elevation: 6,
+                        ),
+                        child: Text(
+                          _loading ? "Validando..." : "Entrar",
+                          style: const TextStyle(
+                            fontFamily: "RobotoMono",
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/forgot");
+                    },
+                    child: const Text(
+                      "Esqueceu sua Senha?",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: "RobotoMono",
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        height: -2.20,
+                      ),
+                    ),
                   ),
                 ),
               ],
-            ),
-            Visibility(
-              visible: !_keyboardVisible,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: 300,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF2E7D32),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35),
-                    ),
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/register");
-                    },
-                    child: Text(
-                      "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: "RobotoMono",
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
             ),
           ],
         ),
