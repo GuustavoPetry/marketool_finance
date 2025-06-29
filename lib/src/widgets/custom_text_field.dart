@@ -1,17 +1,41 @@
 import 'package:flutter/material.dart';
 
-class CustomInputField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final Widget icon;
   final String text;
   final bool isObscure;
   final TextEditingController inputController;
-  const CustomInputField({
+  const CustomTextField({
     super.key,
     required this.isObscure,
     required this.icon,
     required this.text,
     required this.inputController,
   });
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  final FocusNode _focusNode = FocusNode();
+  bool _isFocused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      setState(() {
+        _isFocused = _focusNode.hasFocus;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +45,17 @@ class CustomInputField extends StatelessWidget {
         width: 280,
         height: 50,
         child: TextField(
-          controller: inputController,
-          obscureText: isObscure,
-          style: Theme.of(context).textTheme.labelMedium,
+          focusNode: _focusNode,
+          controller: widget.inputController,
+          obscureText: widget.isObscure,
           decoration: InputDecoration(
-            prefixIcon: icon,
-            labelText: text,
+            prefixIcon: widget.icon,
+            labelText: widget.text,
             labelStyle: TextStyle(
               fontSize: 16,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
-              color: Color(0xFF2E5C4B),
+              color: _isFocused ? Color(0xFF81C784) : Color(0xFF2E5C4B),
             ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
             enabledBorder: OutlineInputBorder(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/login_controller.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
-import 'package:marketool_financer/src/widgets/custom_input_field.dart';
+import 'package:marketool_financer/src/widgets/custom_text_field.dart';
 import 'package:marketool_financer/src/widgets/custom_logo_design.dart';
 
 class LoginView extends StatefulWidget {
@@ -112,38 +112,38 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF0D1F1A),
-            Color(0xFF1F3C34),
-            Color(0xFF2E5C4B),
-            Color(0xFF38755E),
-          ],
-          stops: [0.0, 0.25, 0.50, 1.0],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF0D1F1A),
+              Color(0xFF1F3C34),
+              Color(0xFF2E5C4B),
+              Color(0xFF38755E),
+            ],
+            stops: [0.0, 0.25, 0.50, 1.0],
+          ),
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
+        child: Stack(
           children: [
             ListView(
               controller: _scrollController,
               children: [
-                SizedBox(height: 30),
+                SizedBox(height: 50),
                 LogoDesignWidget(),
                 SizedBox(height: 25),
-                CustomInputField(
+                CustomTextField(
                   isObscure: false,
                   icon: Icon(Icons.person),
                   text: "E-mail ou CPF",
                   inputController: _usernameController,
                 ),
                 const SizedBox(height: 10),
-                CustomInputField(
+                CustomTextField(
                   isObscure: true,
                   icon: Icon(Icons.password),
                   text: "Sua senha",
@@ -181,7 +181,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  width: double.infinity,
+                  width: 300,
                   height: 80,
                   decoration: BoxDecoration(
                     color: Color(0xFF2E7D32),
