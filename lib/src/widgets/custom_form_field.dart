@@ -5,6 +5,7 @@ class CustomFormField extends StatefulWidget {
   final Icon icon;
   final TextInputType type;
   final bool isObscure;
+  final String? errorText;
   final TextEditingController inputController;
   final FormFieldValidator<String?> inputValidator;
 
@@ -16,6 +17,7 @@ class CustomFormField extends StatefulWidget {
     required this.isObscure,
     required this.inputController,
     required this.inputValidator,
+    this.errorText,
   });
 
   @override
@@ -47,12 +49,12 @@ class _CustomFormFieldState extends State<CustomFormField> {
     return Center(
       child: SizedBox(
         width: 280,
-        height: 50,
         child: TextFormField(
           focusNode: _focusNode,
           controller: widget.inputController,
           decoration: InputDecoration(
             labelText: widget.text,
+            errorText: widget.errorText,
             labelStyle: TextStyle(
               fontSize: 16,
               fontFamily: "RobotoMono",
