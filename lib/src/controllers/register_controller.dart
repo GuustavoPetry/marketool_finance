@@ -6,37 +6,33 @@ class RegisterController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
+  final formKeyStep1 = GlobalKey<FormState>();
+  final formKeyStep2 = GlobalKey<FormState>();
+  final formKeyStep3 = GlobalKey<FormState>();
   DateTime? birthDate;
   String? birthDateError;
   bool isLoading = false;
-  final formKey = GlobalKey<FormState>();
 
-  Future<bool> register({
-    required VoidCallback onStateChange,
-  }) async {
+  Future<bool> register({required List<GlobalKey<FormState>> formKeys}) async {
     try {
-      birthDateError = validateBirthDate();
-      final isFormValid = formKey.currentState?.validate() ?? false;
-      final isBirthDateValid = birthDateError == null;
+      final isFormValid = formKeys.every(
+        (key) => key.currentState?.validate() ?? false,
+      );
 
-      if (isFormValid && isBirthDateValid) {
+      if (isFormValid) {
         isLoading = true;
-        onStateChange(); 
 
         await Future.delayed(const Duration(seconds: 2));
 
         clearForm();
         isLoading = false;
-        onStateChange(); 
         return true;
       }
 
-      onStateChange();
       return false;
     } catch (e) {
       debugPrint('Erro no register: $e');
       isLoading = false;
-      onStateChange();
       return false;
     }
   }
@@ -68,13 +64,6 @@ class RegisterController {
   String? validatePhone(String? value) {
     if (value == null || value.length < 8) {
       return 'Telefone inválido';
-    }
-    return null;
-  }
-
-  String? validateBirthDate() {
-    if (birthDate == null) {
-      return 'Data de nascimento obrigatória';
     }
     return null;
   }

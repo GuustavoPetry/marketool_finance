@@ -23,7 +23,6 @@ class CustomDatePicker extends StatelessWidget {
     return Center(
       child: SizedBox(
         width: 280,
-        height: 50,
         child: TextFormField(
           readOnly: true,
           controller: TextEditingController(
