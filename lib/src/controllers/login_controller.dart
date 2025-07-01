@@ -1,13 +1,11 @@
-import 'package:marketool_financer/src/models/user_model.dart';
+import 'package:marketool_financer/src/services/Verify_cpf.dart';
 
 class LoginController {
-  final UserModel _mockUser = UserModel(
-    username: "Gustavo",
-    password: "admin",
-  );
+  final VerifyCPF cpf = VerifyCPF();
 
-  Future<bool> login(String username, String password) async {
+  Future<bool> loginWithCPF(String username, String cpfDocument) async {
     await Future.delayed(Duration(seconds: 2));
-    return username == _mockUser.username && password == _mockUser.password;
+    return cpf.isValid(cpfDocument);
   }
+
 }
