@@ -25,7 +25,7 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
       _loading = true;
     });
 
-    final sucess = await _controller.login(
+    final sucess = await _controller.loginWithCPF(
       _usernameController.text,
       _passwordController.text,
     );
