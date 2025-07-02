@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/forgot_controller.dart';
+import 'package:marketool_financer/src/widgets/custom_button.dart';
+import 'package:marketool_financer/src/widgets/custom_text_field.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -59,45 +61,31 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
-                TextFormField(
-                  controller: _controller.emailController,
-                  keyboardType: TextInputType.emailAddress,
+                CustomTextField(
+                  isObscure: false,
+                  icon: const Icon(Icons.email),
+                  text: 'Seu e-mail',
+                  inputController: _controller.emailController,
                   validator: _controller.validateEmail,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.email),
-                    hintText: 'Seu e-mail',
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(color: Color(0xFF2E7D32), width: 2),
-                    ),
-                  ),
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton(
+                const SizedBox(height: 30),
+                CustomButton(
+                  label: 'Enviar e-mail de recuperação',
+                  icon: const Icon(Icons.send),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _controller.sendRecoveryEmail(context);
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E7D32),
-                    minimumSize: const Size.fromHeight(50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
+                ),
+                const SizedBox(height: 20),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "/login");
+                  },
                   child: const Text(
-                    'Enviar e-mail de recuperação',
-                    style: TextStyle(color: Colors.white),
+                    "Voltar",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
               ],

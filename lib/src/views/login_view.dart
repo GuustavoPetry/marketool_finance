@@ -152,7 +152,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                 ),
                 const SizedBox(height: 20),
 
-
                 Row(
                   children: [
                     Expanded(

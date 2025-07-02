@@ -5,12 +5,15 @@ class CustomTextField extends StatefulWidget {
   final String text;
   final bool isObscure;
   final TextEditingController inputController;
+  final String? Function(String?)? validator;
+  
   const CustomTextField({
     super.key,
     required this.isObscure,
     required this.icon,
     required this.text,
     required this.inputController,
+    this.validator
   });
 
   @override
