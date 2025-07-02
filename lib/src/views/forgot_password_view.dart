@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/forgot_controller.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
-import 'package:marketool_financer/src/widgets/custom_text_field.dart';
+import 'package:marketool_financer/src/widgets/custom_form_field.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -18,6 +18,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      _controller.sendRecoveryEmail(context);
+    }
   }
 
   @override
@@ -60,23 +66,23 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
-                CustomTextField(
-                  isObscure: false,
-                  icon: const Icon(Icons.email),
-                  text: 'Seu e-mail',
-                  inputController: _controller.emailController,
-                  validator: _controller.validateEmail,
+                const SizedBox(height: 25),
+                SizedBox(
+                  height: 100,
+                  child: CustomFormField(
+                    isObscure: false,
+                    icon: const Icon(Icons.email, color: Colors.white),
+                    text: 'Seu e-mail',
+                    type: TextInputType.emailAddress,
+                    inputController: _controller.emailController,
+                    inputValidator: _controller.validateEmail,
+                  ),
                 ),
                 const SizedBox(height: 30),
                 CustomButton(
                   label: 'Enviar e-mail de recuperação',
                   icon: const Icon(Icons.send),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _controller.sendRecoveryEmail(context);
-                    }
-                  },
+                  onPressed: _submit,
                 ),
                 const SizedBox(height: 20),
                 TextButton(
