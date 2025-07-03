@@ -48,13 +48,13 @@ class _RegisterViewState extends State<RegisterView> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 30),
+              SizedBox(height: 15),
               Padding(
                 padding: EdgeInsets.only(right: 25),
                 child: Image.asset(
                   "assets/images/welcomePng.png",
                   width: 250,
-                  height: 290,
+                  height: 250,
                 ),
               ),
               SizedBox(

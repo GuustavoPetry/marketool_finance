@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/login_controller.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
-import 'package:marketool_financer/src/widgets/custom_text_field.dart';
+import 'package:marketool_financer/src/widgets/custom_text_field.dart'; // Mantido, mas provavelmente é o CustomFormField
 import 'package:marketool_financer/src/widgets/custom_logo_design.dart';
+import 'package:marketool_financer/src/widgets/custom_button.dart'; // Importe o CustomButton aqui
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -155,50 +156,18 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                 Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton(
+                      child: CustomButton(
+                        label: "Cadastrar",
                         onPressed: () {
                           Navigator.pushNamed(context, "/register");
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E7D32),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          shadowColor: Colors.black.withOpacity(0.3),
-                          elevation: 6,
-                        ),
-                        child: const Text(
-                          "Cadastrar",
-                          style: TextStyle(
-                            fontFamily: "RobotoMono",
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     Expanded(
-                      child: ElevatedButton(
+                      child: CustomButton(
+                        label: _loading ? "Validando..." : "Entrar",
                         onPressed: _loading ? null : _handleLogin,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E7D32),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          shadowColor: Colors.black.withOpacity(0.3),
-                          elevation: 6,
-                        ),
-                        child: Text(
-                          _loading ? "Validando..." : "Entrar",
-                          style: const TextStyle(
-                            fontFamily: "RobotoMono",
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
                       ),
                     ),
                   ],
@@ -218,7 +187,6 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
                         fontFamily: "RobotoMono",
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
-                        height: -2.20,
                       ),
                     ),
                   ),

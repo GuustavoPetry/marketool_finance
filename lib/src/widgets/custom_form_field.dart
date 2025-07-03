@@ -47,7 +47,6 @@ class _CustomFormFieldState extends State<CustomFormField> {
     return Center(
       child: SizedBox(
         width: 280,
-        height: 50,
         child: TextFormField(
           focusNode: _focusNode,
           controller: widget.inputController,

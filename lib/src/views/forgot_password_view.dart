@@ -67,16 +67,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 25),
-                SizedBox(
-                  height: 100,
-                  child: CustomFormField(
-                    isObscure: false,
-                    icon: const Icon(Icons.email, color: Colors.white),
-                    text: 'Seu e-mail',
-                    type: TextInputType.emailAddress,
-                    inputController: _controller.emailController,
-                    inputValidator: _controller.validateEmail,
-                  ),
+                CustomFormField(
+                  isObscure: false,
+                  icon: const Icon(Icons.email, color: Colors.white),
+                  text: 'Seu e-mail',
+                  type: TextInputType.emailAddress,
+                  inputController: _controller.emailController,
+                  inputValidator: _controller.validateEmail,
                 ),
                 const SizedBox(height: 30),
                 CustomButton(
