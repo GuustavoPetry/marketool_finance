@@ -14,19 +14,19 @@ final List<MenuModel> appMenuItems = [
   ),
   MenuModel(
     title: "Meu Patrimônio",
-    icon: Icons.money,
+    icon: Icons.attach_money,
     route: "/patrimony",
     page: const PatrimonyView(),
   ),
   MenuModel(
     title: "Importar Notas",
-    icon: Icons.file_upload_sharp,
+    icon: Icons.file_upload,
     route: "/upload",
     page: const UploadView(),
   ),
   MenuModel(
     title: "Central de Ajuda",
-    icon: Icons.help_center,
+    icon: Icons.help_outline,
     route: "/help",
     page: const HelpCenterView(),
   ),

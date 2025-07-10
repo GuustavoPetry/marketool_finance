@@ -6,11 +6,14 @@ class RegisterController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
+
   final formKeyStep1 = GlobalKey<FormState>();
   final formKeyStep2 = GlobalKey<FormState>();
   final formKeyStep3 = GlobalKey<FormState>();
+
   DateTime? birthDate;
   String? birthDateError;
+
   bool isLoading = false;
 
   Future<bool> register({required List<GlobalKey<FormState>> formKeys}) async {
@@ -19,17 +22,20 @@ class RegisterController {
         (key) => key.currentState?.validate() ?? false,
       );
 
-      if (isFormValid) {
-        isLoading = true;
+      if (!isFormValid) return false;
 
-        await Future.delayed(const Duration(seconds: 2));
-
-        clearForm();
-        isLoading = false;
-        return true;
+      if (birthDate == null) {
+        birthDateError = "Selecione a data de nascimento";
+        return false;
       }
 
-      return false;
+      isLoading = true;
+
+      await Future.delayed(const Duration(seconds: 2));
+
+      clearForm();
+      isLoading = false;
+      return true;
     } catch (e) {
       debugPrint('Erro no register: $e');
       isLoading = false;
@@ -45,6 +51,13 @@ class RegisterController {
     phoneController.clear();
     birthDate = null;
     birthDateError = null;
+  }
+
+  String getFormattedBirthDate() {
+    if (birthDate == null) return '';
+    return '${birthDate!.day.toString().padLeft(2, '0')}/'
+           '${birthDate!.month.toString().padLeft(2, '0')}/'
+           '${birthDate!.year}';
   }
 
   String? validateName(String? value) {
