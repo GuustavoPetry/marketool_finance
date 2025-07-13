@@ -2,38 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/views/suport_view.dart';
 import 'security_page.dart';
 
-class HelpCenterView extends StatefulWidget {
+class HelpCenterView extends StatelessWidget { // Mudado para StatelessWidget
   const HelpCenterView({super.key});
-
-  @override
-  State<HelpCenterView> createState() => _HelpCenterViewState();
-}
-
-class _HelpCenterViewState extends State<HelpCenterView> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _fadeInAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
-    _fadeInAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOut,
-      ),
-    );
-    _animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +18,8 @@ class _HelpCenterViewState extends State<HelpCenterView> with SingleTickerProvid
           end: Alignment.bottomCenter,
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30), // Aumentado o preenchimento vertical
-      child: Column( // Alterado para Column para controlar melhor o espaçamento e posicionar a seção animada
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: Column(
         children: [
           Expanded(
             child: ListView(
@@ -83,46 +53,43 @@ class _HelpCenterViewState extends State<HelpCenterView> with SingleTickerProvid
                   title: "Perguntas Frequentes",
                   description: "Dúvidas comuns e suas respostas rápidas.",
                   icon: Icons.contact_support_outlined,
-                  onTap: () {}, // Ainda não implementado
+                  onTap: () {},
                 ),
               ],
             ),
           ),
-          FadeTransition( // Aplica a animação de fade-in
-            opacity: _fadeInAnimation,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 20), // Preenchimento em torno da seção de perguntas
-              child: Column(
-                mainAxisSize: MainAxisSize.min, // Usa o mínimo de espaço
-                children: const [
-                  Icon(
-                    Icons.contact_support_outlined, // Uma variante ligeiramente mais moderna do ícone de ajuda
-                    color: Color(0xFF2E7D32), // Verde mais escuro para contraste
-                    size: 50, // Ligeiramente maior
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(
+                  Icons.contact_support_outlined, 
+                  color: Color(0xFF2E7D32), 
+                  size: 50,
+                ),
+                SizedBox(height: 15),
+                Text(
+                  "Como podemos ajudar?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'RobotoMono',
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF2E7D32),
                   ),
-                  SizedBox(height: 15), // Espaçamento aumentado
-                  Text(
-                    "Como podemos ajudar?",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'RobotoMono',
-                      fontSize: 22, // Tamanho de fonte maior para destaque
-                      fontWeight: FontWeight.w600, // Ligeiramente mais negrito
-                      color: Color(0xFF2E7D32), // Combinando com a cor do ícone
-                    ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  "Sua tranquilidade é nossa prioridade.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'RobotoMono',
+                    fontSize: 12,
+                    color: Colors.black54,
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Sua tranquilidade é nossa prioridade.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'RobotoMono',
-                      fontSize: 12,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -138,18 +105,18 @@ class _HelpCenterViewState extends State<HelpCenterView> with SingleTickerProvid
     required VoidCallback onTap,
   }) {
     return Card(
-      elevation: 6, // Elevação aumentada para um efeito flutuante
-      margin: const EdgeInsets.symmetric(vertical: 12), // Um pouco mais de margem vertical
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), // Cantos mais arredondados
-      child: InkWell( // Usa InkWell para um melhor feedback de toque
+      elevation: 6,
+      margin: const EdgeInsets.symmetric(vertical: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.all(16.0), // Mais preenchimento interno
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              Icon(icon, color: const Color(0xFF388E3C), size: 36), // Ícone ligeiramente maior
-              const SizedBox(width: 15), // Espaçamento entre o ícone e o texto
+              Icon(icon, color: const Color(0xFF388E3C), size: 36),
+              const SizedBox(width: 15),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +126,7 @@ class _HelpCenterViewState extends State<HelpCenterView> with SingleTickerProvid
                       style: const TextStyle(
                         fontFamily: 'RobotoMono',
                         fontWeight: FontWeight.bold,
-                        fontSize: 18, // Título ligeiramente maior
+                        fontSize: 18,
                         color: Colors.black87,
                       ),
                     ),
@@ -177,7 +144,7 @@ class _HelpCenterViewState extends State<HelpCenterView> with SingleTickerProvid
                   ],
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, color: Colors.black38, size: 18), // Seta sutil de avançar
+              const Icon(Icons.arrow_forward_ios, color: Colors.black38, size: 18),
             ],
           ),
         ),
