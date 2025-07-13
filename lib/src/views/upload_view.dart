@@ -10,7 +10,7 @@ class UploadView extends StatefulWidget {
 }
 
 class _UploadViewState extends State<UploadView> {
-  bool _loading = false;
+  final bool _loading = false;
   int selectedFiles = 0;
 
   Future<void> _handlePdfSelection() async {
