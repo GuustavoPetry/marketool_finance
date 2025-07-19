@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:marketool_financer/src/widgets/custom_app_bar.dart';
 
 class SecurityPage extends StatelessWidget {
   const SecurityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFE8F5E9),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF2E7D32),
-        title: const Text('Segurança'),
-        centerTitle: true,
-      ),
-      body: SafeArea(
+    return Scaffold( // fundo transparente do Scaffold
+      appBar: CustomAppBar(),
+      body: Container(
+        color: const Color(0xFF002B23), // fundo só do corpo, abaixo do AppBar
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
           child: Column(
@@ -24,15 +21,20 @@ class SecurityPage extends StatelessWidget {
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'RobotoMono',
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 12),
               const Text(
                 'Conheça as medidas que tomamos para proteger seus dados com responsabilidade e transparência.',
-                style: TextStyle(fontSize: 16, height: 1.5),
+                style: TextStyle(
+                  fontSize: 16,
+                  height: 1.5,
+                  fontFamily: 'RobotoMono',
+                  color: Colors.white70,
+                ),
               ),
               const SizedBox(height: 32),
-
               _buildSection(
                 icon: Icons.lock,
                 title: 'Criptografia',
@@ -63,7 +65,6 @@ class SecurityPage extends StatelessWidget {
                 description:
                     'Nunca compartilhe sua senha. Use e-mails confiáveis e senhas seguras com letras, números e símbolos.',
               ),
-
               const SizedBox(height: 40),
               const Divider(thickness: 1, color: Colors.black26),
               const SizedBox(height: 20),
@@ -76,12 +77,16 @@ class SecurityPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                         fontFamily: 'RobotoMono',
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 8),
                     Text(
                       'Fale com nosso suporte: suporte@marketool.com',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white70,
+                      ),
                     ),
                   ],
                 ),
@@ -115,6 +120,7 @@ class SecurityPage extends StatelessWidget {
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'RobotoMono',
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -124,6 +130,7 @@ class SecurityPage extends StatelessWidget {
                     fontSize: 15,
                     height: 1.5,
                     fontFamily: 'RobotoMono',
+                    color: Colors.white,
                   ),
                 ),
               ],

@@ -12,13 +12,13 @@ class CustomAppDrawer extends StatelessWidget {
     return Drawer(
       width: 330,
       child: Container(
-        color: const Color(0xFFDDDFDB),
+        color:  Color.fromARGB(255, 26, 24, 24),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             Container(
               width: double.infinity,
-              color: const Color(0xFF4CAF50),
+              color:  const Color(0xFF002B23),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -49,7 +49,7 @@ class CustomAppDrawer extends StatelessWidget {
             ),
 
             Container(
-              color: const Color(0xFF4CAF50),
+              color:  const Color(0xFF002B23),
               height: 120,
               alignment: Alignment.center,
               child: Padding(
@@ -69,11 +69,12 @@ class CustomAppDrawer extends StatelessWidget {
             ),
             ...appMenuItems.map(
               (item) => ListTile(
-                leading: Icon(item.icon),
+                leading: Icon(item.icon, color: Colors.white,),
                 title: Text(
                   item.title,
                   style: TextStyle(fontFamily: "RobotoMono"),
                 ),
+                textColor: Colors.white,
                 onTap: () {
                   Navigator.pushReplacementNamed(context, item.route);
                 },

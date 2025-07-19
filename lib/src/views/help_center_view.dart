@@ -8,16 +8,7 @@ class HelpCenterView extends StatelessWidget { // Mudado para StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xFFE8F5E9), 
-            Color(0xFFC8E6C9), 
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
+      color: Color(0xFF002B23),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Column(
         children: [
@@ -65,7 +56,7 @@ class HelpCenterView extends StatelessWidget { // Mudado para StatelessWidget
               children: const [
                 Icon(
                   Icons.contact_support_outlined, 
-                  color: Color(0xFF2E7D32), 
+                  color: Colors.white, 
                   size: 50,
                 ),
                 SizedBox(height: 15),
@@ -76,7 +67,7 @@ class HelpCenterView extends StatelessWidget { // Mudado para StatelessWidget
                     fontFamily: 'RobotoMono',
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF2E7D32),
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 5),
@@ -86,7 +77,7 @@ class HelpCenterView extends StatelessWidget { // Mudado para StatelessWidget
                   style: TextStyle(
                     fontFamily: 'RobotoMono',
                     fontSize: 12,
-                    color: Colors.black54,
+                    color: Colors.white,
                   ),
                 ),
               ],

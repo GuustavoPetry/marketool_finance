@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/register_controller.dart';
+import 'package:marketool_financer/src/widgets/custom_app_bar.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
 import 'package:marketool_financer/src/widgets/custom_date_picker.dart';
 import 'package:marketool_financer/src/widgets/custom_form_field.dart';
@@ -16,34 +17,17 @@ class _RegisterViewState extends State<RegisterView> {
   final PageController _pageController = PageController();
   DateTime _selectedDate = DateTime.now();
   int currentPage = 1;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF0D1F1A),
-            Color(0xFF1F3C34),
-            Color(0xFF2E5C4B),
-            Color(0xFF38755E),
-          ],
-          stops: [0.0, 0.25, 0.50, 1.0],
-        ),
-      ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xFF002B23),
         appBar: AppBar(
-          title: Text(
-            'Cadastro - $currentPage/3',
-            style: TextStyle(
-              fontFamily: "RobotoMono",
-              color: Color(0xFFF8F9F7),
-            ),
-          ),
+          backgroundColor: Color.fromARGB(255, 26, 24, 24),
+          title: Text('Cadastro $currentPage/3', style: TextStyle(color: Colors.white),),
           iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: const Color(0xFF2E7D32),
+          automaticallyImplyLeading: true
         ),
         body: SingleChildScrollView(
           child: Column(

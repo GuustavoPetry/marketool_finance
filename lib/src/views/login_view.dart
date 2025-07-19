@@ -114,21 +114,9 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color(0xFF002B23),
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF0D1F1A),
-              Color(0xFF1F3C34),
-              Color(0xFF2E5C4B),
-              Color(0xFF38755E),
-            ],
-            stops: [0.0, 0.25, 0.50, 1.0],
-          ),
-        ),
+
         child: Stack(
           children: [
             ListView(

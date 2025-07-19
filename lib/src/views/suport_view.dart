@@ -89,13 +89,7 @@ class _SuportPageState extends State<SuportPage> {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFFE8F5E9), Color(0xFFC8E6C9)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+            color: Color(0xFF002B23),
             child: Column(
               children: [
                 Expanded(
@@ -132,7 +126,6 @@ class _SuportPageState extends State<SuportPage> {
                     },
                   ),
                 ),
-                const Divider(height: 1),
                 AnimatedPadding(
                   duration: const Duration(milliseconds: 300),
                   padding: EdgeInsets.only(
