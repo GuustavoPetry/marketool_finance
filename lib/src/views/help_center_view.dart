@@ -11,8 +11,8 @@ class HelpCenterView extends StatelessWidget { // Mudado para StatelessWidget
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFFE8F5E9), // Um verde bem claro/menta
-            Color(0xFFC8E6C9), // Um verde claro um pouco mais escuro
+            Color(0xFFE8F5E9), 
+            Color(0xFFC8E6C9), 
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
