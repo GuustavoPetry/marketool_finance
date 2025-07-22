@@ -215,6 +215,7 @@ class _RegisterViewState extends State<RegisterView> {
                   curve: Curves.easeInOut,
                 );
               },
+              //
               child: Text(
                 "Voltar",
                 style: TextStyle(color: Colors.white, fontSize: 18),
