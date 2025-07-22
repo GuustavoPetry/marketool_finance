@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/login_controller.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
+import 'package:marketool_financer/src/widgets/custom_button.dart';
+import 'package:marketool_financer/src/widgets/custom_text_field.dart';
+import 'package:marketool_financer/src/widgets/custom_logo_design.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -15,12 +18,12 @@ class _LoginViewState extends State<LoginView> {
   final _passwordController = TextEditingController();
   bool _loading = false;
 
-  final Color darkGreen = const Color(0xFF145A32);
-  final Color accentGreen = const Color(0xFF48C9B0);
+  void _handleLogin() async {
+    setState(() {
+      _loading = true;
+    });
 
-  Future<void> _handleLogin() async {
-    setState(() => _loading = true);
-    final success = await _controller.loginWithCPF(
+    final sucess = await _controller.loginWithCPF(
       _usernameController.text,
       _passwordController.text,
     );
@@ -34,70 +37,132 @@ class _LoginViewState extends State<LoginView> {
         const SnackBar(
           content: Text('Credenciais inválidas'),
           backgroundColor: Colors.redAccent,
-          behavior: SnackBarBehavior.floating,
+          behavior: snackBehavior,
+          action: SnackBarAction(
+            label: "X",
+            textColor: Colors.white,
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+          content: Text(
+            "Credenciais Inválidas",
+            style: TextStyle(
+              fontSize: 18,
+              fontFamily: "RobotoMono",
+              color: Colors.white,
+            ),
+          ),
         ),
       );
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
-      body: Stack(
-        children: [
-          _buildTopHeader(),
-          Center(child: _buildLoginCard()),
-        ],
-      ),
-    );
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
   }
 
-  Widget _buildTopHeader() {
-    return Container(
-      height: 220,
-      decoration: BoxDecoration(
-        color: darkGreen,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(48),
-          bottomRight: Radius.circular(48),
-        ),
-      ),
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Opacity(
-              opacity: 0.18,
-              child: CustomPaint(painter: _PatternPainter()),
-            ),
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    /// Aguarda o próximo frame para ter acesso ao contexto
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final bottomInset = View.of(context).viewInsets.bottom;
+      final keyboardNowVisible = bottomInset > 0;
+
+      if (_keyboardVisible != keyboardNowVisible) {
+        setState(() {
+          _keyboardVisible = keyboardNowVisible;
+        });
+      }
+
+      if (bottomInset > 0) {
+        _scrollToBottom();
+      }
+    });
+  }
+
+  void _scrollToBottom() {
+    Future.delayed(Duration(milliseconds: 350), () {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF0D1F1A),
+              Color(0xFF1F3C34),
+              Color(0xFF2E5C4B),
+              Color(0xFF38755E),
+            ],
+            stops: [0.0, 0.25, 0.50, 1.0],
           ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        ),
+        child: Stack(
+          children: [
+            ListView(
+              controller: _scrollController,
               children: [
-                const SizedBox(height: 30),
-                const Text(
-                  "marketool",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontFamily: "RobotoMono",
-                    letterSpacing: 1.5,
-                  ),
+                SizedBox(height: 50),
+                LogoDesignWidget(),
+                SizedBox(height: 25),
+                CustomTextField(
+                  isObscure: false,
+                  icon: Icon(Icons.person),
+                  text: "E-mail ou CPF",
+                  inputController: _usernameController,
                 ),
-                const SizedBox(height: 12),
-                Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: accentGreen.withOpacity(0.18),
-                        blurRadius: 12,
-                        offset: const Offset(0, 2),
+                const SizedBox(height: 10),
+                CustomTextField(
+                  isObscure: true,
+                  icon: Icon(Icons.password),
+                  text: "Sua senha",
+                  inputController: _passwordController,
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomButton(
+                        onPressed: _loading ? null : _handleLogin,
+                        label: _loading ? "Validando..." : "Entrar",
+                      ),
+                      const SizedBox(height: 20),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Esqueceu sua Senha?",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: "RobotoMono",
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -105,60 +170,37 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLoginCard() {
-    return SingleChildScrollView(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        padding: const EdgeInsets.all(32),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(32),
-          boxShadow: [
-            BoxShadow(
-              color: accentGreen.withOpacity(0.10),
-              blurRadius: 32,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Center(
-              child: Text(
-                "Entrar",
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[900],
-                  fontFamily: "RobotoMono",
-                  letterSpacing: 1.2,
+            Visibility(
+              visible: !_keyboardVisible,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: 300,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF2E7D32),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/register");
+                    },
+                    child: Text(
+                      "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: "RobotoMono",
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 32),
-            _buildInputField(
-              label: "Email",
-              controller: _usernameController,
-              icon: Icons.email_outlined,
-            ),
-            const SizedBox(height: 18),
-            _buildInputField(
-              label: "Senha",
-              controller: _passwordController,
-              icon: Icons.lock_outline,
-              obscure: true,
-            ),
-            const SizedBox(height: 28),
-            _buildLoginButton(),
-            const SizedBox(height: 24),
-            _buildRegisterLink(),
           ],
         ),
       ),

@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
         child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             textStyle: TextStyle(
-              fontSize: 18,
+              fontSize: 17,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
             ),

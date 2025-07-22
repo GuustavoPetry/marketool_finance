@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/forgot_controller.dart';
+import 'package:marketool_financer/src/widgets/custom_button.dart';
+import 'package:marketool_financer/src/widgets/custom_form_field.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -16,6 +18,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      _controller.sendRecoveryEmail(context);
+    }
   }
 
   @override
@@ -58,46 +66,29 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: _controller.emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: _controller.validateEmail,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.email),
-                    hintText: 'Seu e-mail',
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(color: Color(0xFF2E7D32), width: 2),
-                    ),
-                  ),
+                const SizedBox(height: 25),
+                CustomFormField(
+                  isObscure: false,
+                  icon: const Icon(Icons.email, color: Colors.white),
+                  text: 'Seu e-mail',
+                  type: TextInputType.emailAddress,
+                  inputController: _controller.emailController,
+                  inputValidator: _controller.validateEmail,
+                ),
+                const SizedBox(height: 30),
+                CustomButton(
+                  label: 'Enviar e-mail de recuperação',
+                  icon: const Icon(Icons.send),
+                  onPressed: _submit,
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _controller.sendRecoveryEmail(context);
-                    }
+                    Navigator.pushReplacementNamed(context, "/login");
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E7D32),
-                    minimumSize: const Size.fromHeight(50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
                   child: const Text(
-                    'Enviar e-mail de recuperação',
-                    style: TextStyle(color: Colors.white),
+                    "Voltar",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
               ],
