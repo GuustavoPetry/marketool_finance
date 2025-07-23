@@ -32,16 +32,16 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
     return Drawer(
       width: 330,
       child: Container(
-        color: Color(0xFFDDDFDB),
+        color: const Color(0xFFDDDFDB),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             Container(
-              color: Color(0xFF4CAF50),
+              color: const Color(0xFF4CAF50),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 15, left: 20),
                     child: Text(
                       "Menu",
@@ -52,10 +52,11 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                       ),
                     ),
                   ),
+                  
                   Padding(
-                    padding: EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 15),
                     child: IconButton(
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       color: Colors.white,
                       onPressed: () => Navigator.of(context).pop(),
                     ),
@@ -63,12 +64,13 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                 ],
               ),
             ),
+
             Container(
               height: 120,
-              color: Color(0xFF4CAF50),
+              color: const Color(0xFF4CAF50),
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Stack(
                   children: [
                     Container(
@@ -85,7 +87,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                       top: 8,
                       right: 8,
                       child: IconButton(
-                        icon: Icon(Icons.edit, color: Colors.black),
+                        icon: const Icon(Icons.edit, color: Colors.black),
                         onPressed: () {
                           final nomeController = TextEditingController(text: AuthService.username ?? '');
                           final emailController = TextEditingController(text: "ogustavopetry@gmail.com");
@@ -93,7 +95,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                           showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                             ),
                             builder: (_) {
@@ -107,14 +109,14 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Editar Perfil',
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     GestureDetector(
                                       onTap: _selecionarFoto,
                                       child: Column(
@@ -123,9 +125,9 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                                             radius: 40,
                                             backgroundImage: _fotoPerfil != null
                                                 ? FileImage(_fotoPerfil!)
-                                                : NetworkImage("https://avatars.githubusercontent.com/u/172058538?v=4"),
+                                                : const NetworkImage("https://avatars.githubusercontent.com/u/172058538?v=4") as ImageProvider,
                                           ),
-                                          SizedBox(height: 8),
+                                          const SizedBox(height: 8),
                                           Text(
                                             'Clique para alterar a foto',
                                             style: TextStyle(
@@ -136,23 +138,23 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     TextField(
                                       controller: nomeController,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         labelText: 'Nome',
                                         hintText: 'Digite seu nome',
                                       ),
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     TextField(
                                       controller: emailController,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         labelText: 'Email',
                                         hintText: 'Digite seu email',
                                       ),
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     ElevatedButton(
                                       onPressed: () {
                                         setState(() {
@@ -160,7 +162,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                                         });
                                         Navigator.pop(context);
                                       },
-                                      child: Text('Salvar Alterações'),
+                                      child: const Text('Salvar Alterações'),
                                     ),
                                   ],
                                 ),
@@ -174,22 +176,31 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                 ),
               ),
             ),
+
             ...appMenuItems.map(
               (item) => ListTile(
                 leading: Icon(item.icon),
                 title: Text(
                   item.title,
-                  style: TextStyle(fontFamily: "RobotoMono"),
+                  style: const TextStyle(fontFamily: "RobotoMono"),
                 ),
                 onTap: () {
                   Navigator.pushReplacementNamed(context, item.route);
                 },
               ),
             ),
-            Divider(),
+
             ListTile(
-              leading: Icon(Icons.logout, color: Colors.red),
-              title: Text(
+              leading: const Icon(Icons.person),
+              title: const Text("Usuário"),
+              onTap: () => Navigator.pushNamed(context, '/usuario'),
+            ),
+
+            const Divider(),
+
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text(
                 "Sair",
                 style: TextStyle(fontFamily: "RobotoMono", color: Colors.red),
               ),
@@ -197,7 +208,7 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
                 AuthService.logout();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (_) => LoginView()),
+                  MaterialPageRoute(builder: (_) => const LoginView()),
                   (_) => false,
                 );
               },

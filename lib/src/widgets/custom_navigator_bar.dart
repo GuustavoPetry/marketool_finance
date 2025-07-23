@@ -38,6 +38,14 @@ class CustomNavigatorBar extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, "/upload");
               },
             ),
+            IconButton(
+              icon: const Icon(Icons.person, color: Color(0xFFF8F9F7)),
+              tooltip: 'Perfil Usuario',
+              iconSize: 40,
+              onPressed: () {
+                 Navigator.pushReplacementNamed(context, "/usuario");
+              },
+            )
           ],
         ),
       ),
