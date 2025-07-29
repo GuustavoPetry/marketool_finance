@@ -26,6 +26,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+
       child: ExpansionTile(
         leading: Icon(
           Icons.pie_chart,
@@ -34,24 +35,24 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Colors.green, width: 1),
+          side: BorderSide.none,
         ),
         collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Colors.green, width: 1),
+          side: BorderSide.none,
         ),
         tilePadding: EdgeInsets.symmetric(horizontal: 15),
         childrenPadding: EdgeInsets.zero,
         initiallyExpanded: true,
-        backgroundColor: Color(0xFFEAF4EC),
-        collapsedBackgroundColor: Colors.grey,
+        backgroundColor: Colors.white.withValues(alpha: 0.15),
+        collapsedBackgroundColor: Colors.black87,
         title: const Text(
           "Meus Ativos",
           style: TextStyle(
             fontSize: 22,
             fontFamily: "RobotoMono",
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         children: [
@@ -64,7 +65,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: "RobotoMono",
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
               value: showInPercentage,
@@ -104,7 +105,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
                               fontSize: 16,
                               fontFamily: "RobotoMono",
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -120,7 +121,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
                               fontSize: 16,
                               fontFamily: "RobotoMono",
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -136,7 +137,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
                               fontSize: 16,
                               fontFamily: "RobotoMono",
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -157,7 +158,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
                               fontSize: 16,
                               fontFamily: "RobotoMono",
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -172,7 +173,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
                             ),
                             style: TextStyle(
                               color: asset.dailyVariation >= 0
-                                  ? const Color(0xFF2E7D32)
+                                  ? Colors.green
                                   : Colors.red,
                               fontSize: 16,
                               fontFamily: "RobotoMono",
@@ -191,7 +192,7 @@ class _CustomHomeTableState extends State<CustomHomeTable> {
                             ),
                             style: TextStyle(
                               color: asset.totalVariation >= 0
-                                  ? const Color(0xFF2E7D32)
+                                  ? Colors.green
                                   : Colors.red,
                               fontSize: 16,
                               fontFamily: "RobotoMono",

@@ -42,7 +42,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               borderRadius: BorderRadius.circular(14),
               borderSide: BorderSide.none,
             ),
-            fillColor: Colors.white.withValues(alpha: 0.05),
+            fillColor: Colors.white.withValues(alpha: 0.15),
             filled: true,
           ),
         ),

@@ -72,7 +72,7 @@ class _LoginViewState extends State<LoginView>
   }
 
   void _scrollToBottom() {
-    Future.delayed(Duration(milliseconds: 350), () {
+    Future.delayed(Duration(milliseconds: 800), () {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
@@ -189,7 +189,7 @@ class _LoginViewState extends State<LoginView>
                 child: Text(
                   "Esqueceu sua Senha?",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 17,
                     fontFamily: "RobotoMono",
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
