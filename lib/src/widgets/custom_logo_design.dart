@@ -13,8 +13,8 @@ class LogoDesignWidget extends StatelessWidget {
             child: ClipRRect(
               child: Image.asset(
                 "assets/images/appLogo.png",
-                width: 320,
-                height: 200,
+                width: 310,
+                height: 190,
               ),
             ),
           ),

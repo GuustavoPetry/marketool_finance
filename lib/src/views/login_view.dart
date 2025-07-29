@@ -12,13 +12,76 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
-  final ScrollController _scrollController = ScrollController();
-  bool _keyboardVisible = false;
+class _LoginViewState extends State<LoginView>
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   final _controller = LoginController();
+  final _scrollController = ScrollController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  late AnimationController _animationController;
+  late Animation<Offset> _offsetAnimation;
+  bool _keyboardVisible = false;
   bool _loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    _offsetAnimation =
+        Tween<Offset>(begin: const Offset(0.0, 0.4), end: Offset.zero).animate(
+          CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
+        );
+
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _scrollController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    /// Aguarda o próximo frame para ter acesso ao contexto
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final bottomInset = View.of(context).viewInsets.bottom;
+      final keyboardNowVisible = bottomInset > 0;
+
+      if (_keyboardVisible != keyboardNowVisible) {
+        setState(() {
+          _keyboardVisible = keyboardNowVisible;
+        });
+      }
+
+      if (bottomInset > 0) {
+        _scrollToBottom();
+      }
+    });
+  }
+
+  void _scrollToBottom() {
+    Future.delayed(Duration(milliseconds: 350), () {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
 
   void _handleLogin() async {
     setState(() {
@@ -66,148 +129,96 @@ class _LoginViewState extends State<LoginView> with WidgetsBindingObserver {
   }
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void didChangeMetrics() {
-    /// Aguarda o próximo frame para ter acesso ao contexto
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      final bottomInset = View.of(context).viewInsets.bottom;
-      final keyboardNowVisible = bottomInset > 0;
-
-      if (_keyboardVisible != keyboardNowVisible) {
-        setState(() {
-          _keyboardVisible = keyboardNowVisible;
-        });
-      }
-
-      if (bottomInset > 0) {
-        _scrollToBottom();
-      }
-    });
-  }
-
-  void _scrollToBottom() {
-    Future.delayed(Duration(milliseconds: 350), () {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF0D1F1A),
-              Color(0xFF1F3C34),
-              Color(0xFF2E5C4B),
-              Color(0xFF38755E),
-            ],
-            stops: [0.0, 0.25, 0.50, 1.0],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF001F1A), Color(0xFF0E1E1B)],
           ),
         ),
-        child: Stack(
-          children: [
-            ListView(
-              controller: _scrollController,
-              children: [
-                SizedBox(height: 50),
-                LogoDesignWidget(),
-                SizedBox(height: 25),
-                CustomTextField(
-                  isObscure: false,
-                  icon: Icon(Icons.person),
-                  text: "E-mail ou CPF",
-                  inputController: _usernameController,
+        child: SlideTransition(
+          position: _offsetAnimation,
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 32),
+            controller: _scrollController,
+            children: [
+              SizedBox(height: 50),
+              LogoDesignWidget(),
+              SizedBox(height: 25),
+
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white10),
                 ),
-                const SizedBox(height: 10),
-                CustomTextField(
-                  isObscure: true,
-                  icon: Icon(Icons.password),
-                  text: "Sua senha",
-                  inputController: _passwordController,
-                ),
-                const SizedBox(height: 20),
-                Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomButton(
-                        onPressed: _loading ? null : _handleLogin,
-                        label: _loading ? "Validando..." : "Entrar",
-                      ),
-                      const SizedBox(height: 20),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Esqueceu sua Senha?",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "RobotoMono",
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Visibility(
-              visible: !_keyboardVisible,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: 300,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF2E7D32),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35),
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      isObscure: false,
+                      icon: Icon(Icons.email_outlined, color: Colors.white70),
+                      text: "E-mail ou CPF",
+                      inputController: _usernameController,
                     ),
+                    const SizedBox(height: 10),
+                    CustomTextField(
+                      isObscure: true,
+                      icon: Icon(
+                        Icons.lock_clock_outlined,
+                        color: Colors.white70,
+                      ),
+                      text: "Sua senha",
+                      inputController: _passwordController,
+                    ),
+                    const SizedBox(height: 20),
+                    CustomButton(
+                      onPressed: _loading ? null : _handleLogin,
+                      label: _loading ? "Validando..." : "Entrar",
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 15),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Esqueceu sua Senha?",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "RobotoMono",
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   ),
+                ),
+              ),
+              SizedBox(height: 15),
+              Visibility(
+                visible: !_keyboardVisible,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
                   child: TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, "/register");
                     },
                     child: Text(
-                      "Crie Sua Conta Agora Mesmo\nClique para Cadastrar",
+                      "Ainda não tem conta?\nCrie Agora",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 18,
                         fontFamily: "RobotoMono",
-                        color: Colors.white,
+                        color: Colors.lightGreen,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

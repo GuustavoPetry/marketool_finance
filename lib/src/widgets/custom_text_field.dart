@@ -18,25 +18,6 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,9 +26,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         width: 280,
         height: 50,
         child: TextField(
-          focusNode: _focusNode,
           controller: widget.inputController,
           obscureText: widget.isObscure,
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             prefixIcon: widget.icon,
             labelText: widget.text,
@@ -55,18 +36,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
               fontSize: 16,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
-              color: _isFocused ? Color(0xFF81C784) : Color(0xFF2E5C4B),
+              color: Colors.white70,
             ),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: const Color(0xFF2E5C4B), width: 1),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(14),
+              borderSide: BorderSide.none,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: const Color(0xFF2E5C4B), width: 1),
-            ),
-            fillColor: Color(0xFFE8F5E9),
+            fillColor: Colors.white.withValues(alpha: 0.05),
             filled: true,
           ),
         ),
