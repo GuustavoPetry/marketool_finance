@@ -12,6 +12,7 @@ dependencies:
   file_selector: ^1.0.3
   fl_chart: ^0.66.0
   cloud_firestore: ^4.15.3
+  firebase_core: ^2.32.0
 
 dev_dependencies:
   flutter_test:
