@@ -25,22 +25,13 @@ class CustomFormField extends StatefulWidget {
 }
 
 class _CustomFormFieldState extends State<CustomFormField> {
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-
   @override
   void initState() {
     super.initState();
-    _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
-    });
   }
 
   @override
   void dispose() {
-    _focusNode.dispose();
     super.dispose();
   }
 
@@ -50,8 +41,8 @@ class _CustomFormFieldState extends State<CustomFormField> {
       child: SizedBox(
         width: 280,
         child: TextFormField(
-          focusNode: _focusNode,
           controller: widget.inputController,
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: widget.text,
             errorText: widget.errorText,
@@ -59,19 +50,14 @@ class _CustomFormFieldState extends State<CustomFormField> {
               fontSize: 16,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
-              color: _isFocused ? Colors.green : const Color(0xFF2E5C4B),
+              color: Colors.white70,
             ),
             prefixIcon: widget.icon,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: const Color(0xFF2E5C4B), width: 1),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(14),
+              borderSide: BorderSide.none,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: const Color(0xFF2E5C4B), width: 1),
-            ),
-            fillColor: Color(0xFFE8F5E9),
+            fillColor: Colors.white.withValues(alpha: 0.15),
             filled: true,
           ),
           obscureText: widget.isObscure,

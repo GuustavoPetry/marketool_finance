@@ -51,20 +51,16 @@ class _UploadViewState extends State<UploadView> {
         elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Colors.green, width: 1),
+          side: BorderSide.none,
         ),
         margin: const EdgeInsets.all(24),
-        color: Color(0xFFEAF4EC),
+        color: Colors.grey.withValues(alpha: 0.30),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.picture_as_pdf,
-                size: 100,
-                color: const Color(0xFF2E7D32),
-              ),
+              Icon(Icons.picture_as_pdf, size: 100, color: Colors.green),
               const SizedBox(height: 35),
               const Text(
                 'Faça Upload das suas Notas de Corretagem',
@@ -73,7 +69,7 @@ class _UploadViewState extends State<UploadView> {
                   fontSize: 18,
                   fontFamily: "RobotoMono",
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 30),
@@ -100,7 +96,7 @@ class _UploadViewState extends State<UploadView> {
                   fontSize: 16,
                   fontFamily: "RobotoMono",
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF2E7D32),
+                  color: selectedFiles > 0 ? Colors.green : Colors.red,
                 ),
               ),
 

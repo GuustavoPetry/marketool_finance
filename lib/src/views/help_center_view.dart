@@ -5,43 +5,34 @@ class HelpCenterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container (
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFE8F5E9),
-              Color(0xFFC8E6C9),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: ListView(
+        children: [
+          _buildHelpCard(
+            title: "Como usar o app?",
+            description:
+                "Aprenda a navegar, investir e acompanhar sua carteira.",
+            icon: Icons.help_outline,
           ),
-        ),
-        padding: const EdgeInsets.all(20),
-        child: ListView(
-          children: [
-            _buildHelpCard(
-              title: "Como usar o app?",
-              description: "Aprenda a navegar, investir e acompanhar sua carteira.",
-              icon: Icons.help_outline,
-            ),
-            _buildHelpCard(
-              title: "Segurança",
-              description: "Veja como mantemos seus dados seguros.",
-              icon: Icons.security,
-            ),
-            _buildHelpCard(
-              title: "Contato com suporte",
-              description: "Precisa de ajuda? Fale conosco diretamente.",
-              icon: Icons.contact_support,
-            ),
-            _buildHelpCard(
-              title: "Perguntas Frequentes",
-              description: "Dúvidas comuns e suas respostas rápidas.",
-              icon: Icons.question_answer,
-            ),
-          ],
-        ),
-      );
+          _buildHelpCard(
+            title: "Segurança",
+            description: "Veja como mantemos seus dados seguros.",
+            icon: Icons.security,
+          ),
+          _buildHelpCard(
+            title: "Contato com suporte",
+            description: "Precisa de ajuda? Fale conosco diretamente.",
+            icon: Icons.contact_support,
+          ),
+          _buildHelpCard(
+            title: "Perguntas Frequentes",
+            description: "Dúvidas comuns e suas respostas rápidas.",
+            icon: Icons.question_answer,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildHelpCard({
@@ -51,6 +42,7 @@ class HelpCenterView extends StatelessWidget {
   }) {
     return Card(
       elevation: 4,
+      color: Colors.white.withValues(alpha: 0.70),
       margin: const EdgeInsets.symmetric(vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
@@ -67,8 +59,7 @@ class HelpCenterView extends StatelessWidget {
           description,
           style: const TextStyle(fontFamily: 'RobotoMono'),
         ),
-        onTap: () {
-        },
+        onTap: () {},
       ),
     );
   }

@@ -15,8 +15,17 @@ class BaseLayoutView extends StatelessWidget {
       appBar: CustomAppBar(),
       drawer: CustomAppDrawer(),
       bottomNavigationBar: CustomNavigatorBar(),
-      body: body,
-      backgroundColor: const Color(0xFFD6D6D6),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF001F1A), Color(0xFF0E1E1B)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: body,
+      ),
+      backgroundColor: Colors.transparent,
     );
   }
 }

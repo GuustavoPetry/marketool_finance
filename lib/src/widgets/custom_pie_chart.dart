@@ -18,22 +18,14 @@ class CustomPieChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Colors.green, width: 1),
-        ),
-        elevation: 3,
-        color: Color(0xFFEAF4EC),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: PieChart(
-            PieChartData(
-              sectionsSpace: 4,
-              centerSpaceRadius: 40,
-              sections: _buildSections(),
-              borderData: FlBorderData(show: false),
-            ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: PieChart(
+          PieChartData(
+            sectionsSpace: 4,
+            centerSpaceRadius: 40,
+            sections: _buildSections(),
+            borderData: FlBorderData(show: false),
           ),
         ),
       ),

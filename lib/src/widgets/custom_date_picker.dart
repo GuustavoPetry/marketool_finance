@@ -31,25 +31,21 @@ class CustomDatePicker extends StatelessWidget {
                 '${selectedDate.month.toString().padLeft(2, '0')}/'
                 '${selectedDate.year}',
           ),
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: label,
             labelStyle: TextStyle(
               fontSize: 16,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
-              color: Color(0xFF2E7D32),
+              color: Colors.white70,
             ),
             prefixIcon: icon,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: const Color(0xFF2E7D32), width: 1),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(14),
+              borderSide: BorderSide.none,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: const Color(0xFF2E7D32), width: 1),
-            ),
-            fillColor: Color(0xFFE8F5E9),
+            fillColor: Colors.white.withValues(alpha: 0.15),
             filled: true,
           ),
           onTap: () async {
