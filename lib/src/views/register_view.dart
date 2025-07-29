@@ -13,23 +13,35 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   late final RegisterController _controller = RegisterController();
-  final PageController _pageController = PageController();
   DateTime _selectedDate = DateTime.now();
   int currentPage = 1;
+
+  void _textButtonAction() {
+    switch (currentPage) {
+      case 1:
+        Navigator.pushReplacementNamed(context, "/login");
+        break;
+
+      case 2:
+        setState(() {
+          --currentPage;
+        });
+
+      case 3:
+        setState(() {
+          --currentPage;
+        });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF0D1F1A),
-            Color(0xFF1F3C34),
-            Color(0xFF2E5C4B),
-            Color(0xFF38755E),
-          ],
-          stops: [0.0, 0.25, 0.50, 1.0],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF001F1A), Color(0xFF0E1E1B)],
         ),
       ),
       child: Scaffold(
@@ -46,6 +58,7 @@ class _RegisterViewState extends State<RegisterView> {
           backgroundColor: const Color(0xFF2E7D32),
         ),
         body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
               SizedBox(height: 30),
@@ -53,20 +66,38 @@ class _RegisterViewState extends State<RegisterView> {
                 padding: EdgeInsets.only(right: 25),
                 child: Image.asset(
                   "assets/images/welcomePng.png",
-                  width: 250,
-                  height: 290,
+                  width: 200,
+                  height: 240,
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.45,
-                child: PageView(
-                  controller: _pageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    _registerStep_01(),
-                    _registerStep_02(),
-                    _registerStep_03(),
-                  ],
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 100),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+                child: Container(
+                  key: ValueKey<int>(currentPage),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white10),
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  child: _getCurrentStepWidget(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextButton(
+                onPressed: _textButtonAction,
+                child: Text(
+                  "Voltar",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
             ],
@@ -74,6 +105,19 @@ class _RegisterViewState extends State<RegisterView> {
         ),
       ),
     );
+  }
+
+  Widget _getCurrentStepWidget() {
+    switch (currentPage) {
+      case 1:
+        return _registerStep_01();
+      case 2:
+        return _registerStep_02();
+      case 3:
+        return _registerStep_03();
+      default:
+        return _registerStep_01();
+    }
   }
 
   Widget _registerStep_01() {
@@ -86,17 +130,17 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               CustomFormField(
                 text: "Nome Completo",
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person, color: Colors.white70),
                 type: TextInputType.text,
                 isObscure: false,
                 inputController: _controller.nameController,
                 inputValidator: _controller.validateName,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               CustomDatePicker(
                 selectedDate: _selectedDate,
                 label: "Data de Nascimento",
-                icon: Icon(Icons.calendar_today),
+                icon: Icon(Icons.calendar_today, color: Colors.white70),
                 firstDate: DateTime(1900),
                 lastDate: DateTime.now(),
                 onChanged: (newDate) {
@@ -105,7 +149,7 @@ class _RegisterViewState extends State<RegisterView> {
                   });
                 },
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               CustomButton(
                 label: "Próximo",
                 onPressed: () {
@@ -113,22 +157,8 @@ class _RegisterViewState extends State<RegisterView> {
                     setState(() {
                       ++currentPage;
                     });
-                    _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
                   }
                 },
-              ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, "/login");
-                },
-                child: Text(
-                  "Voltar",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
               ),
             ],
           ),
@@ -147,22 +177,22 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               CustomFormField(
                 text: "E-mail",
-                icon: Icon(Icons.email),
+                icon: Icon(Icons.email, color: Colors.white70),
                 type: TextInputType.emailAddress,
                 isObscure: false,
                 inputController: _controller.emailController,
                 inputValidator: _controller.validateEmail,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               CustomFormField(
                 text: "Nº Celular",
-                icon: Icon(Icons.phone),
+                icon: Icon(Icons.phone, color: Colors.white70),
                 type: TextInputType.phone,
                 isObscure: false,
                 inputController: _controller.phoneController,
                 inputValidator: _controller.validatePhone,
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               CustomButton(
                 label: "Próximo",
                 onPressed: () {
@@ -170,28 +200,8 @@ class _RegisterViewState extends State<RegisterView> {
                     setState(() {
                       ++currentPage;
                     });
-                    _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
                   }
                 },
-              ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    --currentPage;
-                  });
-                  _pageController.previousPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                child: Text(
-                  "Voltar",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
               ),
             ],
           ),
@@ -210,22 +220,22 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               CustomFormField(
                 text: "Escolha uma Senha",
-                icon: Icon(Icons.password),
+                icon: Icon(Icons.password, color: Colors.white70),
                 type: TextInputType.text,
                 isObscure: true,
                 inputController: _controller.passwordController,
                 inputValidator: _controller.validatePassword,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               CustomFormField(
                 text: "Confirme a Senha",
-                icon: Icon(Icons.password),
+                icon: Icon(Icons.password, color: Colors.white70),
                 type: TextInputType.text,
                 isObscure: true,
                 inputController: _controller.confirmPasswordController,
                 inputValidator: _controller.validateConfirmPassword,
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               CustomButton(
                 label: "Finalizar",
                 onPressed: () {
@@ -240,22 +250,6 @@ class _RegisterViewState extends State<RegisterView> {
                     );
                   }
                 },
-              ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    --currentPage;
-                  });
-                  _pageController.previousPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                child: Text(
-                  "Voltar",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
               ),
             ],
           ),

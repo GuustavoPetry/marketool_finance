@@ -12,7 +12,7 @@ class CustomAppDrawer extends StatelessWidget {
     return Drawer(
       width: 330,
       child: Container(
-        color: const Color(0xFFDDDFDB),
+        color: const Color(0xFF4CAF50),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -55,9 +55,9 @@ class CustomAppDrawer extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsetsGeometry.only(top: 5, bottom: 5),
                 child: Container(
+                  alignment: Alignment.center,
                   width: 320,
                   height: 100,
-                  alignment: Alignment.center,
                   child: CustomUserCard(
                     nome: "${AuthService.username}",
                     email: "ogustavopetry@gmail.com",
@@ -67,12 +67,16 @@ class CustomAppDrawer extends StatelessWidget {
                 ),
               ),
             ),
+
             ...appMenuItems.map(
               (item) => ListTile(
-                leading: Icon(item.icon),
+                leading: Icon(item.icon, color: Colors.white70),
                 title: Text(
                   item.title,
-                  style: TextStyle(fontFamily: "RobotoMono"),
+                  style: TextStyle(
+                    fontFamily: "RobotoMono",
+                    color: Colors.white,
+                  ),
                 ),
                 onTap: () {
                   Navigator.pushReplacementNamed(context, item.route);

@@ -15,8 +15,9 @@ class CustomUserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 12,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: Colors.white.withValues(alpha: 0.35),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Row(
@@ -32,13 +33,14 @@ class CustomUserCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     email,
-                    style: const TextStyle(fontSize: 14, color: Colors.black54),
+                    style: const TextStyle(fontSize: 14, color: Colors.white),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

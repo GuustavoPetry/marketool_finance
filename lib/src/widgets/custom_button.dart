@@ -14,28 +14,29 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(0),
-      child: SizedBox(
-        width: 230,
-        height: 50,
-        child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            textStyle: TextStyle(
-              fontSize: 18,
-              fontFamily: "RobotoMono",
-              fontWeight: FontWeight.bold,
-            ),
-            backgroundColor: const Color(0xFF2E7D32),
-            foregroundColor: Colors.white,
-            disabledBackgroundColor: const Color(0xFF2E7D32),
-            disabledForegroundColor: Colors.white,
-            elevation: 6,
+    return SizedBox(
+      width: 280,
+      height: 50,
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          textStyle: TextStyle(
+            fontSize: 18,
+            fontFamily: "RobotoMono",
+            fontWeight: FontWeight.bold,
           ),
-          label: Text(label),
-          onPressed: onPressed,
-          icon: icon,
+          backgroundColor: const Color(0xFF2E7D32),
+          foregroundColor: Colors.white,
+          disabledBackgroundColor: const Color(0xFF2E7D32),
+          disabledForegroundColor: Colors.white,
+          shadowColor: Colors.black,
+          elevation: 8,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
         ),
+        label: Text(label),
+        onPressed: onPressed,
+        icon: icon,
       ),
     );
   }
