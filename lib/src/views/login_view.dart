@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/controllers/login_controller.dart';
+import 'package:marketool_financer/src/models/user_model.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
 import 'package:marketool_financer/src/widgets/custom_text_field.dart';
@@ -88,10 +89,12 @@ class _LoginViewState extends State<LoginView>
       _loading = true;
     });
 
-    final sucess = await _controller.loginWithCPF(
-      _usernameController.text,
-      _passwordController.text,
+    final user = UserModel(
+      username: _usernameController.text.trim(),
+      password: _passwordController.text.trim(),
     );
+
+    final auth = await _controller.login(user);
 
     if (!mounted) return;
 
@@ -99,8 +102,10 @@ class _LoginViewState extends State<LoginView>
       _loading = false;
     });
 
-    if (sucess) {
-      AuthService.login(_usernameController.text);
+    if (auth != null) {
+      final fullName = auth["name"];
+      final firstName = fullName.split(" ")[0];
+      AuthService.login(firstName);
       Navigator.pushReplacementNamed(context, "/home");
     } else {
       const snackBehavior = SnackBarBehavior.floating;
