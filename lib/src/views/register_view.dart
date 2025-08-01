@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:marketool_financer/src/controllers/register_controller.dart';
+import 'package:marketool_financer/src/models/register_model.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
 import 'package:marketool_financer/src/widgets/custom_date_picker.dart';
 import 'package:marketool_financer/src/widgets/custom_form_field.dart';
@@ -13,8 +15,57 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   late final RegisterController _controller = RegisterController();
+  final _nameController = TextEditingController();
+  final _cpfController = TextEditingController();
+  final _birthDateController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _formKeyStep1 = GlobalKey<FormState>();
+  final _formKeyStep2 = GlobalKey<FormState>();
+  final _formKeyStep3 = GlobalKey<FormState>();
+  DateTime? birthDate;
+  String? birthDateError;
   DateTime _selectedDate = DateTime.now();
   int currentPage = 1;
+  bool isLoading = false;
+
+  void _handleRegister() async {
+    final registration = RegisterModel(
+      fullName: _nameController.text,
+      cpf: _cpfController.text,
+      birthDate: _selectedDate,
+      email: _emailController.text,
+      password: _controller.passwordController.text,
+    );
+
+    final register = await _controller.register(registration);
+
+    if (!mounted) return;
+
+    if (register) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(milliseconds: 1800),
+          backgroundColor: Colors.green,
+          content: Text("Cadastro Realizado com Sucesso"),
+        ),
+      );
+      await Future.delayed(Duration(seconds: 2));
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(context, "/login");
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          showCloseIcon: true,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red,
+          content: Text("Falha ao Cadastrar. Tente Novamente!"),
+        ),
+      );
+    }
+  }
 
   void _textButtonAction() {
     switch (currentPage) {
@@ -48,7 +99,7 @@ class _RegisterViewState extends State<RegisterView> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text(
-            'Cadastro - ${currentPage + 1}/3',
+            'Cadastro - $currentPage/3',
             style: TextStyle(
               fontFamily: "RobotoMono",
               color: Color(0xFFF8F9F7),
@@ -125,7 +176,7 @@ class _RegisterViewState extends State<RegisterView> {
       alignment: Alignment.topCenter,
       child: SingleChildScrollView(
         child: Form(
-          key: _controller.formKeyStep1,
+          key: _formKeyStep1,
           child: Column(
             children: [
               CustomFormField(
@@ -133,27 +184,31 @@ class _RegisterViewState extends State<RegisterView> {
                 icon: Icon(Icons.person, color: Colors.white70),
                 type: TextInputType.text,
                 isObscure: false,
-                inputController: _controller.nameController,
+                inputController: _nameController,
                 inputValidator: _controller.validateName,
               ),
               SizedBox(height: 15),
               CustomDatePicker(
+                controller: _birthDateController,
                 selectedDate: _selectedDate,
                 label: "Data de Nascimento",
-                icon: Icon(Icons.calendar_today, color: Colors.white70),
+                initialDate: _selectedDate,
                 firstDate: DateTime(1900),
                 lastDate: DateTime.now(),
+                icon: Icon(Icons.calendar_today, color: Colors.white70),
                 onChanged: (newDate) {
                   setState(() {
                     _selectedDate = newDate;
                   });
+                  final formatter = DateFormat('dd/MM/yyyy');
+                  _birthDateController.text = formatter.format(_selectedDate);
                 },
               ),
               SizedBox(height: 20),
               CustomButton(
                 label: "Próximo",
                 onPressed: () {
-                  if (_controller.formKeyStep1.currentState!.validate()) {
+                  if (_formKeyStep1.currentState!.validate()) {
                     setState(() {
                       ++currentPage;
                     });
@@ -172,7 +227,7 @@ class _RegisterViewState extends State<RegisterView> {
       alignment: Alignment.topCenter,
       child: SingleChildScrollView(
         child: Form(
-          key: _controller.formKeyStep2,
+          key: _formKeyStep2,
           child: Column(
             children: [
               CustomFormField(
@@ -180,7 +235,7 @@ class _RegisterViewState extends State<RegisterView> {
                 icon: Icon(Icons.email, color: Colors.white70),
                 type: TextInputType.emailAddress,
                 isObscure: false,
-                inputController: _controller.emailController,
+                inputController: _emailController,
                 inputValidator: _controller.validateEmail,
               ),
               SizedBox(height: 15),
@@ -189,14 +244,14 @@ class _RegisterViewState extends State<RegisterView> {
                 icon: Icon(Icons.phone, color: Colors.white70),
                 type: TextInputType.phone,
                 isObscure: false,
-                inputController: _controller.phoneController,
+                inputController: _phoneController,
                 inputValidator: _controller.validatePhone,
               ),
               SizedBox(height: 20),
               CustomButton(
                 label: "Próximo",
                 onPressed: () {
-                  if (_controller.formKeyStep2.currentState!.validate()) {
+                  if (_formKeyStep2.currentState!.validate()) {
                     setState(() {
                       ++currentPage;
                     });
@@ -215,7 +270,7 @@ class _RegisterViewState extends State<RegisterView> {
       alignment: Alignment.topCenter,
       child: SingleChildScrollView(
         child: Form(
-          key: _controller.formKeyStep3,
+          key: _formKeyStep3,
           child: Column(
             children: [
               CustomFormField(
@@ -232,7 +287,7 @@ class _RegisterViewState extends State<RegisterView> {
                 icon: Icon(Icons.password, color: Colors.white70),
                 type: TextInputType.text,
                 isObscure: true,
-                inputController: _controller.confirmPasswordController,
+                inputController: _confirmPasswordController,
                 inputValidator: _controller.validateConfirmPassword,
               ),
               SizedBox(height: 20),
@@ -240,14 +295,8 @@ class _RegisterViewState extends State<RegisterView> {
                 label: "Finalizar",
                 onPressed: () {
                   /// Será implementado a inserção dos cadastro no banco de dados
-                  if (_controller.formKeyStep3.currentState!.validate()) {
-                    _controller.register(
-                      formKeys: [
-                        _controller.formKeyStep1,
-                        _controller.formKeyStep2,
-                        _controller.formKeyStep3,
-                      ],
-                    );
+                  if (_formKeyStep3.currentState!.validate()) {
+                    _handleRegister();
                   }
                 },
               ),

@@ -2,7 +2,7 @@ class UserModel {
   final String username;
   final String password;
 
-  UserModel({
+  const UserModel({
     required this.username,
     required this.password
   });

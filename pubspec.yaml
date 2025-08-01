@@ -12,6 +12,7 @@ dependencies:
   file_selector: ^1.0.3
   fl_chart: ^0.66.0
   http: ^1.4.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
