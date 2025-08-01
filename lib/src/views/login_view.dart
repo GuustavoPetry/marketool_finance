@@ -190,7 +190,9 @@ class _LoginViewState extends State<LoginView>
               ),
               SizedBox(height: 15),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forgot');
+                },
                 child: Text(
                   "Esqueceu sua Senha?",
                   style: TextStyle(

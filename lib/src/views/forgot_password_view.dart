@@ -21,7 +21,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
+        backgroundColor: const Color(0xFF2E7D32),
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           'Recuperar Senha',
           style: TextStyle(
@@ -30,23 +34,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             fontSize: 20,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFF2E7D32),
       ),
       body: Container(
-        padding: const EdgeInsets.all(32),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0D1F1A),
-              Color(0xFF1F3C34),
-              Color(0xFF2E5C4B),
-              Color(0xFF38755E),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF001F1A), Color(0xFF0E1E1B)],
           ),
         ),
+        padding: const EdgeInsets.all(32),
         child: Center(
           child: Form(
             key: _formKey,
@@ -55,7 +52,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               children: [
                 const Text(
                   'Digite seu e-mail para receber instruções:',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: "RobotoMono",
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
@@ -63,21 +64,23 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   controller: _controller.emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: _controller.validateEmail,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.email),
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.email, color: Colors.white70),
                     hintText: 'Seu e-mail',
+                    hintStyle: const TextStyle(color: Colors.white54),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Colors.white.withOpacity(0.05),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.white10),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(color: Color(0xFF2E7D32), width: 2),
+                      borderSide: const BorderSide(color: Colors.greenAccent),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                 ),

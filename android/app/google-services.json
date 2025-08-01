@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733692184937",
+    "project_id": "messaging-21031",
+    "storage_bucket": "messaging-21031.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733692184937:android:9f4410bd4eb4f8bdbc95f8",
+        "android_client_info": {
+          "package_name": "com.example.marketool_financer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRjuPq6obvgTuU7mmZn53MwjJpxoBTGFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
