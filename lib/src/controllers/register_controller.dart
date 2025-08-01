@@ -1,50 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:marketool_financer/src/models/register_model.dart';
+import 'package:marketool_financer/src/services/api_service.dart';
 
 class RegisterController {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  final phoneController = TextEditingController();
-  final formKeyStep1 = GlobalKey<FormState>();
-  final formKeyStep2 = GlobalKey<FormState>();
-  final formKeyStep3 = GlobalKey<FormState>();
-  DateTime? birthDate;
-  String? birthDateError;
-  bool isLoading = false;
+  final apiService = ApiService();
 
-  Future<bool> register({required List<GlobalKey<FormState>> formKeys}) async {
-    try {
-      final isFormValid = formKeys.every(
-        (key) => key.currentState?.validate() ?? false,
-      );
+  Future<bool> register(RegisterModel register) async {
+    final registration = await apiService.register(register.toJson());
 
-      if (isFormValid) {
-        isLoading = true;
-
-        await Future.delayed(const Duration(seconds: 2));
-
-        clearForm();
-        isLoading = false;
-        return true;
-      }
-
-      return false;
-    } catch (e) {
-      debugPrint('Erro no register: $e');
-      isLoading = false;
-      return false;
+    if(registration) {
+      return true;
     }
-  }
-
-  void clearForm() {
-    nameController.clear();
-    emailController.clear();
-    passwordController.clear();
-    confirmPasswordController.clear();
-    phoneController.clear();
-    birthDate = null;
-    birthDateError = null;
+    return false;
   }
 
   String? validateName(String? value) {
@@ -82,11 +51,4 @@ class RegisterController {
     return null;
   }
 
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    phoneController.dispose();
-  }
 }

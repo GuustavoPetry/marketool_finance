@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
 
 class CustomDatePicker extends StatelessWidget {
-  final DateTime selectedDate;
   final String label;
-  final Icon icon;
+  final DateTime selectedDate;
+  final DateTime initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
+  final Icon icon;
   final ValueChanged<DateTime> onChanged;
+  final TextEditingController controller;
 
   const CustomDatePicker({
     super.key,
-    required this.selectedDate,
     required this.label,
-    required this.icon,
+    required this.initialDate,
+    required this.selectedDate,
     required this.firstDate,
     required this.lastDate,
+    required this.icon,
     required this.onChanged,
+    required this.controller,
   });
+
+  String _formatDate(DateTime date) {
+    return "${date.day.toString().padLeft(2, '0')}/"
+        "${date.month.toString().padLeft(2, '0')}/"
+        "${date.year}";
+  }
 
   @override
   Widget build(BuildContext context) {
+    controller.text = _formatDate(selectedDate);
     return Center(
       child: SizedBox(
         width: 280,
         child: TextFormField(
           readOnly: true,
-          controller: TextEditingController(
-            text:
-                '${selectedDate.day.toString().padLeft(2, '0')}/'
-                '${selectedDate.month.toString().padLeft(2, '0')}/'
-                '${selectedDate.year}',
-          ),
+          controller: controller,
           style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: label,
@@ -51,7 +57,7 @@ class CustomDatePicker extends StatelessWidget {
           onTap: () async {
             final picked = await showDatePicker(
               context: context,
-              initialDate: selectedDate,
+              initialDate: initialDate,
               firstDate: firstDate,
               lastDate: lastDate,
             );
