@@ -17,20 +17,14 @@ class _AssetSearchViewState extends State<AssetSearchView> {
   final _searchController = TextEditingController();
   final List<AssetModel> _assets = [];
   Timer? _debounce;
-  bool _isLoading = false;
+  bool _isLoading = true;
+
 
   void _onSearchChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(seconds: 1), () async {
       final search = _searchController.text.trim();
-
-      if (search.length <= 2) {
-        setState(() {
-          _assets.clear();
-        });
-        return;
-      }
 
       setState(() => _isLoading = true);
 
@@ -42,7 +36,7 @@ class _AssetSearchViewState extends State<AssetSearchView> {
             ..addAll(results);
         });
       } catch (e) {
-        print("Erro: $e");
+        return;
       } finally {
         setState(() => _isLoading = false);
       }
@@ -52,6 +46,7 @@ class _AssetSearchViewState extends State<AssetSearchView> {
   @override
   void initState() {
     super.initState();
+    _onSearchChanged();
     _searchController.addListener(_onSearchChanged);
   }
 
@@ -102,7 +97,7 @@ class _AssetSearchViewState extends State<AssetSearchView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(24),
       child: Column(
         children: [
           CustomTextField(
@@ -116,7 +111,12 @@ class _AssetSearchViewState extends State<AssetSearchView> {
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : _assets.isEmpty
-                ? const Center(child: Text("Nenhum ativo encontrado"))
+                ? const Center(
+                    child: Text(
+                      "Nenhum ativo encontrado",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  )
                 : ListView.builder(
                     itemCount: _assets.length,
                     itemBuilder: (context, index) =>

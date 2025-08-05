@@ -41,11 +41,9 @@ class ApiService {
 
   // BUSCAR ATIVOS API BRAPPI:
   Future<List<AssetModel>> searchAssets(String search) async {
-    if (search.length <= 2) return [];
-
     final url = Uri.parse(
       "$_baseUrl/brappi/assets",
-    ).replace(queryParameters: {"search": search, "page": "1", "limit": "10"});
+    ).replace(queryParameters: {"search": search, "page": "1", "limit": "150"});
 
     try {
       final response = await http.get(url);
