@@ -19,6 +19,7 @@ class _AssetSearchViewState extends State<AssetSearchView> {
   Timer? _debounce;
   bool _isLoading = true;
 
+
   void _onSearchChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
