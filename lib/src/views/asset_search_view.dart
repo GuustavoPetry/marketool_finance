@@ -1,0 +1,130 @@
+import 'dart:async';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
+import 'package:marketool_financer/src/controllers/search_assets_controller.dart';
+import 'package:marketool_financer/src/models/asset_model.dart';
+import 'package:marketool_financer/src/widgets/custom_text_field.dart';
+
+class AssetSearchView extends StatefulWidget {
+  const AssetSearchView({super.key});
+
+  @override
+  State<AssetSearchView> createState() => _AssetSearchViewState();
+}
+
+class _AssetSearchViewState extends State<AssetSearchView> {
+  final _controller = SearchAssetsController();
+  final _searchController = TextEditingController();
+  final List<AssetModel> _assets = [];
+  Timer? _debounce;
+  bool _isLoading = false;
+
+  void _onSearchChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    _debounce = Timer(const Duration(seconds: 1), () async {
+      final search = _searchController.text.trim();
+
+      if (search.length <= 2) {
+        setState(() {
+          _assets.clear();
+        });
+        return;
+      }
+
+      setState(() => _isLoading = true);
+
+      try {
+        final results = await _controller.getAssets(search);
+        setState(() {
+          _assets
+            ..clear()
+            ..addAll(results);
+        });
+      } catch (e) {
+        print("Erro: $e");
+      } finally {
+        setState(() => _isLoading = false);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  Widget _buildAssetTile(AssetModel asset) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: ListTile(
+        leading: asset.logo.endsWith('.svg')
+            ? SvgPicture.network(
+                asset.logo,
+                width: 40,
+                placeholderBuilder: (context) => CircularProgressIndicator(),
+              )
+            : Image.network(
+                asset.logo,
+                width: 40,
+                errorBuilder: (context, error, stackTrace) =>
+                    Icon(Icons.broken_image),
+              ),
+        title: Text(
+          asset.ticker,
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        subtitle: Text(
+          "R\$ ${asset.close.toStringAsFixed(2)}",
+          style: TextStyle(color: Colors.green, fontSize: 16),
+        ),
+        trailing: Text(
+          "${asset.change.toStringAsFixed(2)}%",
+          style: TextStyle(
+            color: asset.change >= 0 ? Colors.green : Colors.red,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          CustomTextField(
+            isObscure: false,
+            icon: Icon(Icons.search, color: Colors.white70),
+            text: "Digite o Ticker",
+            inputController: _searchController,
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _assets.isEmpty
+                ? const Center(child: Text("Nenhum ativo encontrado"))
+                : ListView.builder(
+                    itemCount: _assets.length,
+                    itemBuilder: (context, index) =>
+                        _buildAssetTile(_assets[index]),
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
