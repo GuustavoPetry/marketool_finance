@@ -1,5 +1,6 @@
 import "dart:convert";
 import "package:http/http.dart" as http;
+import "package:marketool_financer/src/models/asset_model.dart";
 
 class ApiService {
   final _baseUrl = "http://10.0.2.2:3000";
@@ -36,5 +37,27 @@ class ApiService {
       return true;
     }
     return false;
+  }
+
+  // BUSCAR ATIVOS API BRAPPI:
+  Future<List<AssetModel>> searchAssets(String search) async {
+    if (search.length <= 2) return [];
+
+    final url = Uri.parse(
+      "$_baseUrl/brappi/assets",
+    ).replace(queryParameters: {"search": search, "page": "1", "limit": "10"});
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        return data.map((json) => AssetModel.fromJson(json)).toList();
+      } else {
+        return [];
+      }
+    } catch (e) {
+      return [];
+    }
   }
 }
