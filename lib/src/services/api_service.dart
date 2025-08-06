@@ -1,6 +1,7 @@
 import "dart:convert";
 import "package:http/http.dart" as http;
 import "package:marketool_financer/src/models/asset_model.dart";
+import "package:marketool_financer/src/models/data_price_model.dart";
 
 class ApiService {
   final _baseUrl = "http://10.0.2.2:3000";
@@ -39,7 +40,7 @@ class ApiService {
     return false;
   }
 
-  // BUSCAR ATIVOS API BRAPPI:
+  // BUSCAR ATIVOS EM LISTA API BRAPPI:
   Future<List<AssetModel>> searchAssets(String search) async {
     final url = Uri.parse(
       "$_baseUrl/brappi/assets",
@@ -55,6 +56,24 @@ class ApiService {
         return [];
       }
     } catch (e) {
+      return [];
+    }
+  }
+
+  // BUSCAR HISTÓRICO DE PREÇOS DE ATIVOS ESPECÍFICO:
+  Future<List<DataPriceModel>> historicalDataPrice(String ticker) async {
+    final url = Uri.parse("$_baseUrl/brappi/assets/$ticker");
+
+    try {
+      final response = await http.get(url);
+
+      if(response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        return data.map((json) => DataPriceModel.fromJson(json)).toList();
+      } else {
+        return [];
+      }
+    } catch(e) {
       return [];
     }
   }

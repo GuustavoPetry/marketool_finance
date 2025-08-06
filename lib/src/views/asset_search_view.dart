@@ -90,6 +90,13 @@ class _AssetSearchViewState extends State<AssetSearchView> {
             fontSize: 16,
           ),
         ),
+        onTap: () {
+          Navigator.pushNamed(
+            context, 
+            "/asset-detail",
+            arguments: asset
+          );
+        },
       ),
     );
   }
