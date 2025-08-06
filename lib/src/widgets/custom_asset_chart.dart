@@ -73,7 +73,7 @@ class _CustomAssetChartState extends State<CustomAssetChart> {
             plotAreaBorderWidth: 0,
             primaryXAxis: DateTimeAxis(
               edgeLabelPlacement: EdgeLabelPlacement.shift,
-              dateFormat: DateFormat('dd/MM/yyyy'),
+              dateFormat: DateFormat('dd/MM'),
               majorGridLines: const MajorGridLines(width: 0),
               labelStyle: const TextStyle(color: Colors.white),
             ),
