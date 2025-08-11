@@ -58,6 +58,18 @@ class _OperationViewState extends State<OperationView> {
     super.dispose();
   }
 
+  void _resetFields() {
+    _tickerController.clear();
+    _searchController.clear();
+    _quantityController.clear();
+    _unitPriceController.clear();
+    setState(() {
+      totalPrice = 0;
+      _selectedDate = DateTime.now();
+      _operationType = null;
+    });
+  }
+
   void _handleOperation() async {
     final inputDate = _dateController.text;
     final parsedDate = DateFormat("dd/MM/yyyy").parse(inputDate);
@@ -85,9 +97,8 @@ class _OperationViewState extends State<OperationView> {
           content: Text("Operação registrada com sucesso"),
         ),
       );
-      await Future.delayed(Duration(seconds: 2));
-      if (!mounted) return;
-      Navigator.pushReplacementNamed(context, "/login");
+      await Future.delayed(Duration(seconds: 1));
+      _resetFields();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
