@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/models/menu_model.dart';
-import 'package:marketool_financer/src/views/asset_search_view.dart';
 import 'package:marketool_financer/src/views/help_center_view.dart';
 import 'package:marketool_financer/src/views/home_view.dart';
+import 'package:marketool_financer/src/views/operation_view.dart';
 import 'package:marketool_financer/src/views/patrimony_view.dart';
 import 'package:marketool_financer/src/views/upload_view.dart';
 
@@ -20,16 +20,16 @@ final List<MenuModel> appMenuItems = [
     page: const PatrimonyView(),
   ),
   MenuModel(
+    title: "Registrar Operação",
+    icon: Icons.corporate_fare,
+    route: "/operation",
+    page: const OperationView(),
+  ),
+  MenuModel(
     title: "Importar Notas",
     icon: Icons.file_upload_sharp,
     route: "/upload",
     page: const UploadView(),
-  ),
-  MenuModel(
-    title: "Pesquisar Ativos",
-    icon: Icons.search,
-    route: "search-assets",
-    page: const AssetSearchView(),
   ),
   MenuModel(
     title: "Central de Ajuda",

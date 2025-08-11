@@ -59,7 +59,7 @@ class CustomAppDrawer extends StatelessWidget {
                   width: 320,
                   height: 100,
                   child: CustomUserCard(
-                    nome: "${AuthService.username}",
+                    nome: AuthService.username,
                     email: "ogustavopetry@gmail.com",
                     avatarUrl:
                         "https://avatars.githubusercontent.com/u/172058538?v=4",

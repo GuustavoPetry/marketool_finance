@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
-import 'package:marketool_financer/src/views/login_view.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -24,14 +23,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            AuthService.logout();
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => LoginView()),
-              (route) => false,
-            );
+            Navigator.pushNamed(context, "/search-assets");
           },
-          icon: const Icon(Icons.logout),
+          icon: Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: const Icon(Icons.search_rounded),
+          ),
         ),
       ],
     );

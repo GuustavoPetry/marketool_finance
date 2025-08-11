@@ -77,4 +77,20 @@ class ApiService {
       return [];
     }
   }
+
+  // REGISTER:
+  Future<bool> addOperation(Map<String, dynamic> data) async {
+    final url = Uri.parse("$_baseUrl/operation");
+
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(data),
+    );
+
+    if (response.statusCode == 201) {
+      return true;
+    }
+    return false;
+  }
 }

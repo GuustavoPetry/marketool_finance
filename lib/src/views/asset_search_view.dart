@@ -19,7 +19,6 @@ class _AssetSearchViewState extends State<AssetSearchView> {
   Timer? _debounce;
   bool _isLoading = true;
 
-
   void _onSearchChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
@@ -60,7 +59,7 @@ class _AssetSearchViewState extends State<AssetSearchView> {
 
   Widget _buildAssetTile(AssetModel asset) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
+      padding: const EdgeInsets.symmetric(horizontal: 36),
       child: ListTile(
         leading: asset.logo.endsWith('.svg')
             ? SvgPicture.network(
@@ -91,11 +90,7 @@ class _AssetSearchViewState extends State<AssetSearchView> {
           ),
         ),
         onTap: () {
-          Navigator.pushNamed(
-            context, 
-            "/asset-detail",
-            arguments: asset
-          );
+          Navigator.pushNamed(context, "/asset-detail", arguments: asset);
         },
       ),
     );
@@ -103,34 +98,63 @@ class _AssetSearchViewState extends State<AssetSearchView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          CustomTextField(
-            isObscure: false,
-            icon: Icon(Icons.search, color: Colors.white70),
-            text: "Digite o Ticker",
-            inputController: _searchController,
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF001F1A), Color(0xFF0E1E1B)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : _assets.isEmpty
-                ? const Center(
-                    child: Text(
-                      "Nenhum ativo encontrado",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            CustomTextField(
+              isObscure: false,
+              icon: Icon(Icons.search, color: Colors.white70),
+              text: "Digite o Ticker",
+              inputController: _searchController,
+            ),
+            const SizedBox(height: 5),
+            Expanded(
+              child: _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : _assets.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "Nenhum ativo encontrado",
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: _assets.length,
+                      itemBuilder: (context, index) =>
+                          _buildAssetTile(_assets[index]),
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: _assets.length,
-                    itemBuilder: (context, index) =>
-                        _buildAssetTile(_assets[index]),
-                  ),
-          ),
-        ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20, top: 15),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.close, size: 30, color: Colors.green),
+                    SizedBox(width: 5),
+                    Text(
+                      "Sair da Busca",
+                      style: TextStyle(fontSize: 24, color: Colors.green),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

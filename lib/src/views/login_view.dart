@@ -105,7 +105,8 @@ class _LoginViewState extends State<LoginView>
     if (auth != null) {
       final fullName = auth["name"];
       final firstName = fullName.split(" ")[0];
-      AuthService.login(firstName);
+      final userId = auth["id"];
+      AuthService.login(firstName, userId);
       Navigator.pushReplacementNamed(context, "/home");
     } else {
       const snackBehavior = SnackBarBehavior.floating;

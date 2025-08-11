@@ -4,10 +4,12 @@ class CustomTextField extends StatefulWidget {
   final Widget icon;
   final String text;
   final bool isObscure;
+  final bool autoFocus;
   final TextEditingController inputController;
   const CustomTextField({
     super.key,
-    required this.isObscure,
+    this.isObscure = false,
+    this.autoFocus = false,
     required this.icon,
     required this.text,
     required this.inputController,
@@ -28,6 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         child: TextField(
           controller: widget.inputController,
           obscureText: widget.isObscure,
+          autofocus: widget.autoFocus,
           style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             prefixIcon: widget.icon,

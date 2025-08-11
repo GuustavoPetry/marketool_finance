@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomDatePicker extends StatelessWidget {
+class CustomDatePicker extends StatefulWidget {
   final String label;
   final DateTime selectedDate;
   final DateTime initialDate;
@@ -22,6 +22,11 @@ class CustomDatePicker extends StatelessWidget {
     required this.controller,
   });
 
+  @override
+  State<CustomDatePicker> createState() => _CustomDatePickerState();
+}
+
+class _CustomDatePickerState extends State<CustomDatePicker> {
   String _formatDate(DateTime date) {
     return "${date.day.toString().padLeft(2, '0')}/"
         "${date.month.toString().padLeft(2, '0')}/"
@@ -29,24 +34,41 @@ class CustomDatePicker extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.controller.text = _formatDate(widget.selectedDate);
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomDatePicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDate != widget.selectedDate) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.controller.text = _formatDate(widget.selectedDate);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    controller.text = _formatDate(selectedDate);
     return Center(
       child: SizedBox(
         width: 280,
         child: TextFormField(
           readOnly: true,
-          controller: controller,
+          controller: widget.controller,
           style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            labelText: label,
+            labelText: widget.label,
             labelStyle: TextStyle(
               fontSize: 16,
               fontFamily: "RobotoMono",
               fontWeight: FontWeight.bold,
               color: Colors.white70,
             ),
-            prefixIcon: icon,
+            prefixIcon: widget.icon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
               borderSide: BorderSide.none,
@@ -57,12 +79,12 @@ class CustomDatePicker extends StatelessWidget {
           onTap: () async {
             final picked = await showDatePicker(
               context: context,
-              initialDate: initialDate,
-              firstDate: firstDate,
-              lastDate: lastDate,
+              initialDate: widget.initialDate,
+              firstDate: widget.firstDate,
+              lastDate: widget.lastDate,
             );
             if (picked != null) {
-              onChanged(picked);
+              widget.onChanged(picked);
             }
           },
         ),
