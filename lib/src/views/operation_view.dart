@@ -343,7 +343,7 @@ class _OperationViewState extends State<OperationView> {
                 ),
                 SizedBox(height: 15),
                 Text(
-                  totalPrice > 0 ? formatter.format(totalPrice) : "",
+                  formatter.format(totalPrice),
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
