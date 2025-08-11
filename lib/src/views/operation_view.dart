@@ -184,8 +184,17 @@ class _OperationViewState extends State<OperationView> {
                     ),
                     const SizedBox(height: 16),
                     Expanded(
-                      child: _isLoading
-                          ? const Center(child: CircularProgressIndicator())
+                      child: _assets.isEmpty
+                          ? Center(
+                              child: const Text(
+                                "Informe o Ticker do ativo para adicionar",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            )
                           : ListView.builder(
                               shrinkWrap: true,
                               itemCount: _assets.length,
