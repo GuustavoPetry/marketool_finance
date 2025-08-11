@@ -11,10 +11,10 @@ class CustomFormField extends StatefulWidget {
 
   const CustomFormField({
     super.key,
+    this.isObscure = false,
     required this.text,
     required this.icon,
     required this.type,
-    required this.isObscure,
     required this.inputController,
     required this.inputValidator,
     this.errorText,
