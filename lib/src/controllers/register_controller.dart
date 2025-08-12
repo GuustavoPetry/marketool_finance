@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/models/register_model.dart';
-import 'package:marketool_financer/src/services/api_service.dart';
+import 'package:marketool_financer/src/services/user_service.dart';
 
 class RegisterController {
 
   final passwordController = TextEditingController();
-  final apiService = ApiService();
+  final userService = UserService();
 
   Future<bool> register(RegisterModel register) async {
-    final registration = await apiService.register(register.toJson());
+    final registration = await userService.register(register.toJson());
 
     if(registration) {
       return true;

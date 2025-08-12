@@ -8,6 +8,13 @@ class PieChartModel {
   PieChartModel({
     required this.ticker,
     required this.percentage,
-    required this.color,
+    this.color = Colors.white
   });
+
+  factory PieChartModel.fromJson(Map<String, dynamic> json) {
+    return PieChartModel(
+      ticker: json["assetTicker"], 
+      percentage: (json["percentage"] as num).toDouble(),
+    );
+  }
 }

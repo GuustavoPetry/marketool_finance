@@ -23,10 +23,22 @@ class CustomNavigatorBar extends StatelessWidget {
 
             IconButton(
               icon: const Icon(Icons.show_chart, color: Color(0xFFF8F9F7)),
-              tooltip: 'Gráficos',
+              tooltip: 'Patrimônio',
               iconSize: 40,
               onPressed: () {
                 Navigator.pushReplacementNamed(context, "/patrimony");
+              },
+            ),
+
+            IconButton(
+              icon: const Icon(
+                Icons.app_registration_rounded,
+                color: Color(0xFFF8F9F7),
+              ),
+              tooltip: 'Operações',
+              iconSize: 40,
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, "/operation");
               },
             ),
 
