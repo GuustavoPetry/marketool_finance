@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -34,7 +33,6 @@ class _OperationViewState extends State<OperationView> {
   String? _operationType;
   DateTime _selectedDate = DateTime.now();
   double totalPrice = 0;
-  bool _isLoading = true;
   Timer? _debounce;
 
   final formatter = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
@@ -131,7 +129,6 @@ class _OperationViewState extends State<OperationView> {
       if (_searchController.text.length < 3) return;
 
       final search = _searchController.text.trim();
-      setState(() => _isLoading = true);
 
       try {
         final results = await _searchcontroller.getAssets(search);
@@ -142,8 +139,6 @@ class _OperationViewState extends State<OperationView> {
         });
       } catch (e) {
         // tratar erro
-      } finally {
-        setState(() => _isLoading = false);
       }
     });
   }
@@ -160,7 +155,6 @@ class _OperationViewState extends State<OperationView> {
                 if (_searchController.text.length < 3) return;
 
                 final search = _searchController.text.trim();
-                setStateDialog(() => _isLoading = true);
 
                 try {
                   final results = await _searchcontroller.getAssets(search);
@@ -171,9 +165,7 @@ class _OperationViewState extends State<OperationView> {
                   });
                 } catch (e) {
                   // tratar erro
-                } finally {
-                  setStateDialog(() => _isLoading = false);
-                }
+                } 
               });
             });
 
@@ -310,7 +302,7 @@ class _OperationViewState extends State<OperationView> {
                 CustomDatePicker(
                   controller: _dateController,
                   selectedDate: _selectedDate,
-                  label: "Data de Nascimento",
+                  label: "Data da Operação",
                   initialDate: _selectedDate,
                   firstDate: DateTime(1900),
                   lastDate: DateTime.now(),

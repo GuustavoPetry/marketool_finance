@@ -1,9 +1,7 @@
 class HomeTableModel {
-
   final String ticker;
   final double dailyVariation;
   final double totalVariation;
-
 
   HomeTableModel({
     required this.ticker,
