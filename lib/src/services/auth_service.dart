@@ -6,7 +6,7 @@ class AuthService {
   static String username = "";
   static int? userId;
 
-  final _baseUrl = "http://10.0.2.2:3000";
+  final _baseUrl = "https://api.zenshop.net.br";
 
 
   static void login(String user, int id) {

@@ -2,7 +2,7 @@ import "dart:convert";
 import "package:http/http.dart" as http;
 
 class UserService {
-  final _baseUrl = "http://10.0.2.2:3000";
+  final _baseUrl = "https://api.zenshop.net.br";
 
   // REGISTER:
   Future<bool> register(Map<String, dynamic> data) async {

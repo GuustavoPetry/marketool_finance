@@ -4,7 +4,7 @@ import 'package:marketool_financer/src/models/asset_model.dart';
 import 'package:marketool_financer/src/models/data_price_model.dart';
 
 class BrappiService {
-  final _baseUrl = "http://10.0.2.2:3000";
+  final _baseUrl = "https://api.zenshop.net.br";
 
    // BUSCAR ATIVOS EM LISTA API BRAPPI:
   Future<List<AssetModel>> searchAssets(String search) async {

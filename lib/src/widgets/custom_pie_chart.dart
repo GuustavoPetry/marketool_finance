@@ -22,7 +22,7 @@ class CustomPieChart extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: PieChart(
           PieChartData(
-            sectionsSpace: 4,
+            sectionsSpace: 1,
             centerSpaceRadius: 40,
             sections: _buildSections(),
             borderData: FlBorderData(show: false),
@@ -40,7 +40,7 @@ class CustomPieChart extends StatelessWidget {
         radius: radius,
         title: asset.ticker,
         titleStyle: const TextStyle(
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),

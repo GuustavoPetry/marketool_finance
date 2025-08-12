@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:marketool_financer/src/models/pie_chart_model.dart';
 
 class CustodyService {
-  final _baseUrl = "http://10.0.2.2:3000";
+  final _baseUrl = "https://api.zenshop.net.br";
 
   // REGISTRAR OPERAÇÃO FINANCEIRA NO BANCO DE DADOS:
   Future<bool> addOperation(Map<String, dynamic> data) async {
