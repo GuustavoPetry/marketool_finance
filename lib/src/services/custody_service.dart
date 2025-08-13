@@ -60,4 +60,17 @@ class CustodyService {
       throw Exception("Falha ao carregar dados da custódia");
     }
   }
+
+  Future<List<Map<String, dynamic>>> getUserProfit(int userId) async {
+    final url = Uri.parse("$_baseUrl/profit/$userId");
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonData = json.decode(response.body);
+      return jsonData.map((e) => e as Map<String, dynamic>).toList();
+    } else {
+      throw Exception("Erro ao buscar dados de lucro");
+    }
+  }
 }
