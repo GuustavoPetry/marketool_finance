@@ -10,19 +10,19 @@ class CustomPieChart extends StatelessWidget {
   const CustomPieChart({
     super.key,
     required this.data,
-    this.radius = 100,
+    this.radius = 80,
     this.centerTextSize = 16,
   });
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
+    return SizedBox(
+      width: 270,
+      child: AspectRatio(
+        aspectRatio: 1,
         child: PieChart(
           PieChartData(
-            sectionsSpace: 4,
+            sectionsSpace: 0.5,
             centerSpaceRadius: 40,
             sections: _buildSections(),
             borderData: FlBorderData(show: false),
@@ -40,7 +40,7 @@ class CustomPieChart extends StatelessWidget {
         radius: radius,
         title: asset.ticker,
         titleStyle: const TextStyle(
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),

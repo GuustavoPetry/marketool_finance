@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:marketool_financer/src/models/home_table_model.dart';
 import 'package:marketool_financer/src/widgets/custom_home_table.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,24 +11,11 @@ class HomeView extends StatelessWidget {
       child: ListView(
         children: [
           CustomHomeTable(
-            assets: [
-              HomeTableModel(
-                ticker: "BBAS3",
-                dailyVariation: 1.8,
-                totalVariation: 9.2,
-              ),
-
-              HomeTableModel(
-                ticker: "PETR4",
-                dailyVariation: -3.69,
-                totalVariation: -6.05,
-              ),
-
-              HomeTableModel(
-                ticker: "BBDC4",
-                dailyVariation: 2.37,
-                totalVariation: 46.18,
-              ),
+            columnLabels: ["Ativo", "Δ Diária", "Δ Total"],
+            columnWidths: [120, 120, 120],
+            data: [
+              ["PETR4", 1.5, -0.8],
+              ["VALE3", -0.3, 2.1],
             ],
           ),
         ],

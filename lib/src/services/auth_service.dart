@@ -8,7 +8,6 @@ class AuthService {
 
   final _baseUrl = "http://10.0.2.2:3000";
 
-
   static void login(String user, int id) {
     userId = id;
     username = user;
@@ -19,7 +18,7 @@ class AuthService {
     isLoggedIn = false;
   }
 
-    // LOGIN:
+  // LOGIN:
   Future<Map<String, dynamic>?> auth(Map<String, dynamic> data) async {
     // Quando implementar Token JWT essa função irá retornar o Token
     final url = Uri.parse("$_baseUrl/auth");
