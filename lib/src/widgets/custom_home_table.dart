@@ -1,214 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:marketool_financer/src/models/home_table_model.dart';
 
 class CustomHomeTable extends StatefulWidget {
-  final List<HomeTableModel> assets;
+  final List<String> columnLabels;
+  final List<double> columnWidths;
+  final List<List<dynamic>> data;
+  final String fontFamily;
 
-  const CustomHomeTable({super.key, required this.assets});
+  const CustomHomeTable({
+    super.key,
+    required this.columnLabels,
+    required this.data,
+    this.columnWidths = const [],
+    this.fontFamily = "RobotoMono",
+  });
 
   @override
   State<CustomHomeTable> createState() => _CustomHomeTableState();
 }
 
 class _CustomHomeTableState extends State<CustomHomeTable> {
-  bool showInPercentage = false;
-
-  String formatValue(double value, {required bool inPercentage}) {
-    if (inPercentage) {
-      return "${value.toStringAsFixed(2)} %";
-    } else {
-      final prefix = value < 0 ? "-R\$ " : "R\$ ";
-      return "$prefix${value.abs().toStringAsFixed(2)}";
+  String formatValue(dynamic value) {
+    if (value is double) {
+      return value.toStringAsFixed(2);
     }
+    return value.toString();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-
-      child: ExpansionTile(
-        leading: Icon(
-          Icons.pie_chart,
-          size: 40,
-          color: const Color(0xFF2E7D32),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide.none,
-        ),
-        collapsedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide.none,
-        ),
-        tilePadding: EdgeInsets.symmetric(horizontal: 15),
-        childrenPadding: EdgeInsets.zero,
-        initiallyExpanded: true,
-        backgroundColor: Colors.white.withValues(alpha: 0.15),
-        collapsedBackgroundColor: Colors.black87,
-        title: const Text(
-          "Meus Ativos",
-          style: TextStyle(
-            fontSize: 22,
-            fontFamily: "RobotoMono",
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(
-                showInPercentage ? "Mostrar em R\$" : "Mostrar em %",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: "RobotoMono",
-                  color: Colors.white,
-                ),
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Table(
+          columnWidths: {
+            for (int i = 0; i < widget.columnLabels.length; i++)
+              i: FixedColumnWidth(
+                widget.columnWidths.isNotEmpty ? widget.columnWidths[i] : 100,
               ),
-              value: showInPercentage,
-              onChanged: (value) {
-                setState(() {
-                  showInPercentage = value;
-                });
-              },
+          },
+          border: TableBorder(
+            horizontalInside: BorderSide(color: Colors.grey.shade400, width: 1),
+          ),
+          children: [
+            TableRow(
+              decoration: BoxDecoration(color: const Color(0xFF2E7D32)),
+              children: widget.columnLabels.map((label) {
+                return SizedBox(
+                  height: 40,
+                  child: Center(
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: widget.fontFamily,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
-          ),
 
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Table(
-              columnWidths: const {
-                0: FixedColumnWidth(100),
-                1: FixedColumnWidth(100),
-                2: FixedColumnWidth(100),
-              },
-              border: TableBorder(
-                horizontalInside: BorderSide(
-                  color: Colors.grey.shade400,
-                  width: 1,
-                ),
-              ),
-              children: [
-                TableRow(
-                  decoration: BoxDecoration(color: const Color(0xFF2E7D32)),
-                  children: [
-                    TableCell(
-                      child: SizedBox(
-                        height: 40,
-                        child: Center(
-                          child: Text(
-                            "Ativo",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "RobotoMono",
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
+            ...widget.data.map((row) {
+              return TableRow(
+                children: row.map((cell) {
+                  return SizedBox(
+                    height: 35,
+                    child: Center(
+                      child: Text(
+                        cell is num ? formatValue(cell) : cell.toString(),
+                        style: TextStyle(
+                          color: (cell is num)
+                              ? (cell >= 0 ? Colors.green : Colors.red)
+                              : Colors.white,
+                          fontSize: 14,
+                          fontFamily: widget.fontFamily,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    TableCell(
-                      child: SizedBox(
-                        height: 40,
-                        child: Center(
-                          child: Text(
-                            "Δ Diária",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "RobotoMono",
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    TableCell(
-                      child: SizedBox(
-                        height: 40,
-                        child: Center(
-                          child: Text(
-                            "Δ Total",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "RobotoMono",
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                ...widget.assets.map((asset) {
-                  return TableRow(
-                    children: [
-                      SizedBox(
-                        height: 35,
-                        child: Center(
-                          child: Text(
-                            asset.ticker,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "RobotoMono",
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 35,
-                        child: Center(
-                          child: Text(
-                            formatValue(
-                              asset.dailyVariation,
-                              inPercentage: showInPercentage,
-                            ),
-                            style: TextStyle(
-                              color: asset.dailyVariation >= 0
-                                  ? Colors.green
-                                  : Colors.red,
-                              fontSize: 16,
-                              fontFamily: "RobotoMono",
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 35,
-                        child: Center(
-                          child: Text(
-                            formatValue(
-                              asset.totalVariation,
-                              inPercentage: showInPercentage,
-                            ),
-                            style: TextStyle(
-                              color: asset.totalVariation >= 0
-                                  ? Colors.green
-                                  : Colors.red,
-                              fontSize: 16,
-                              fontFamily: "RobotoMono",
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   );
-                }),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-        ],
+                }).toList(),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }

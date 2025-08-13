@@ -50,6 +50,8 @@ class CustodyService {
 
         return PieChartModel(
           ticker: custodyItem.ticker,
+          quantity: custodyItem.quantity,
+          totalInvested: custodyItem.totalInvested,
           percentage: custodyItem.percentage,
           color: palette[index % palette.length],
         );

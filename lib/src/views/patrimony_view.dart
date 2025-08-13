@@ -3,6 +3,7 @@ import 'package:marketool_financer/src/models/pie_chart_model.dart';
 import 'package:marketool_financer/src/services/auth_service.dart';
 import 'package:marketool_financer/src/services/custody_service.dart';
 import 'package:marketool_financer/src/widgets/custom_button.dart';
+import 'package:marketool_financer/src/widgets/custom_home_table.dart';
 import 'package:marketool_financer/src/widgets/custom_pie_chart.dart';
 
 class PatrimonyView extends StatefulWidget {
@@ -13,13 +14,13 @@ class PatrimonyView extends StatefulWidget {
 }
 
 class _PatrimonyViewState extends State<PatrimonyView> {
-  late Future<List<PieChartModel>> futurePieChartData;
+  late Future<List<PieChartModel>> custodyData;
   final custodyService = CustodyService();
 
   @override
   void initState() {
     super.initState();
-    futurePieChartData = custodyService.getPieChartData(AuthService.userId!);
+    custodyData = custodyService.getPieChartData(AuthService.userId!);
   }
 
   @override
@@ -27,7 +28,7 @@ class _PatrimonyViewState extends State<PatrimonyView> {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: FutureBuilder<List<PieChartModel>>(
-        future: futurePieChartData,
+        future: custodyData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -65,9 +66,26 @@ class _PatrimonyViewState extends State<PatrimonyView> {
             return SizedBox(
               width: double.infinity,
               height: double.infinity,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: CustomPieChart(data: snapshot.data!),
+              child: ListView(
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: CustomPieChart(data: snapshot.data!),
+                  ),
+                  SizedBox(height: 20),
+                  CustomHomeTable(
+                    columnLabels: ["ATIVO", "QTD.", "VALOR", "%"],
+                    columnWidths: [90, 90, 120, 80],
+                    data: snapshot.data!.map((asset) {
+                      return [
+                        asset.ticker,
+                        asset.quantity.toString(),
+                        asset.totalInvested.toStringAsFixed(2),
+                        asset.percentage.toStringAsFixed(2),
+                      ];
+                    }).toList(),
+                  ),
+                ],
               ),
             );
           }
